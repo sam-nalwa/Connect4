@@ -2,10 +2,10 @@ package gamelogic;
 import java.util.Random;
 //This class is used for controlling the rest of the game logic
 public class GameController{
-	TokenState colourPlacing;//The colour to be placed at any given time
-	Board gameBoard;
-	boolean freePlaceMode;//true if the game is in free placing mode
-	TokenState firstMove;//Used in validating the board in free place mode
+	private TokenState colourPlacing;//The colour to be placed at any given time
+	private Board gameBoard;
+	private boolean freePlaceMode;//true if the game is in free placing mode
+	private TokenState firstMove;//Used in validating the board in free place mode
 	//This constructor just intializes the game with a randomly chosen player
 	//Used for normal game beginning//
 	public GameController(boolean freePlaceMode){
@@ -13,29 +13,11 @@ public class GameController{
 
 		colourPlacing = pickRandomColour();
 		gameBoard = new Board();
-		// //Delegate to appropriate game initializer
-		// if (freePlaceMode){
-		// 	initFreePlaceMode();
-		// }else{
-		// 	initNormalMode();
-		// }
 	}
-	//For now just returning array itself.. Will change for @niko and @sam?
-	public Token[][] getBoard(){
-
-		return gameBoard.getBoard();
+	//Returns the board itself for manipulation
+	public Board getBoard(){
+		return gameBoard;
 	}
-	// //init for normal play mode
-	// private void initNormalMode(){
-	// 	//Sets random first colour and inits board
-	// 	colourPlacing = pickRandomColour();
-	// 	gameBoard = new Board();
-	// }
-	// //init for freeplace mode
-	// private void initFreePlaceMode(){
-	// 	//inits board
-	// 	gameBoard = new Board();
-	// }
 
 	//ends free place mode, returns errors
 	//SHITTY IMPLEMENTATION is the following:
@@ -69,6 +51,10 @@ public class GameController{
 		} else if (colourPlacing == TokenState.BLUE){
 			colourPlacing = TokenState.RED;
 		}
+	}
+	//Resets board to empty
+	public void reset(){
+		gameBoard.clear();
 	}
 	//Method used for inserting piece in a certain position
 	//Returns false in unsuccesful, and true otherwise

@@ -3,28 +3,32 @@ package gamelogic;
 //This class represents the game board/grid and all its legal operations
 public class Board{
 	private Token[][] slots; //This 2d array will store all of the game Tokens
+	public int colLength;
+	public int rowLength;
 
 	//Default 7x6 board constructor to be used unless req change
-	public Board(){
+	Board(){
 		//Delagating to more specific constuctor
 		this(7,6);
 	}
 	//Future proofing in case we need different sized boards
-	public Board(int colSize, int rowSize){
-		slots = new Token[colSize][rowSize];
+	Board(int colLength, int rowLength){
+		this.colLength = colLength;
+		this.rowLength = rowLength;
+		slots = new Token[colLength][rowLength];
 		clear();
 	}
-	//For now just returning array itself.. Will change for @niko and @sam?
-	Token[][] getBoard(){
-		return slots;
+	//Used for accessing token directly
+	public Token getToken(int col, int row){
+		return slots[col][row];
 	}
 	//Method to place a token when in free mode
-	public void freePlace(int col, int row, TokenState colour){
+	void freePlace(int col, int row, TokenState colour){
 		slots[col][row].changeState(colour);
 	}
 	//Methods to place a token in normal mode
 	//Returns true if succseful, false if unsuccseful
-	public boolean normalPlace(int col, TokenState colour){
+	boolean normalPlace(int col, TokenState colour){
 		return normalPlace(col,0,colour);//Delegating to recursive function
 	}
 	//This really shouldnt be called with a row != 0 other unless done recursively
@@ -43,7 +47,7 @@ public class Board{
 		}
 	}
 	//Sets board to all empty tokens
-	public void clear(){
+	void clear(){
 		for (int i = 0; i < slots.length; i++){
 			for (int j = 0; j < slots[i].length; j++){
 				slots[i][j] = new Token();
@@ -52,7 +56,7 @@ public class Board{
 	}
 	//Method to check if the state of the board is legal (after freeplacemode)
 	//CHECK WITH GUI TEAM how they want us to return what kind of invalid placement there is???
-	public ErrorCode[] findErrors(TokenState firstMove){
+	ErrorCode[] findErrors(TokenState firstMove){
 		int redCount = 0;
 		int blueCount = 0;
 		ErrorCode[] errors = new ErrorCode[3];
@@ -104,7 +108,7 @@ public class Board{
 		return finalErrors;
 		}
 	}
-	private TokenState checkWin(){
+	TokenState checkWin(){
 		int numCols = slots.length;
 		int numRows = slots[0].length;
 		for (int i = 0; i < numCols; i++){ //cycle through columns

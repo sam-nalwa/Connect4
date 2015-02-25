@@ -37,18 +37,18 @@ public class Client{
 		System.out.println("Place: (3,0)");
 		printBoard(game.getBoard());
 	}
-	private static void printBoard(Token[][] brdArr){
+	private static void printBoard(Board brd){
 		String[] rows = new String[6];
 		for (int i = 0; i < rows.length;i++){
 			rows[i] = "";
 		}
-		for (int i = 0; i < brdArr.length; i++){
-			for (int j = 0; j < brdArr[i].length; j++){
-				if (brdArr[i][j].getState() == TokenState.RED){
+		for (int i = 0; i < brd.colLength; i++){
+			for (int j = 0; j < brd.rowLength; j++){
+				if (brd.getToken(i,j).getState() == TokenState.RED){
 					rows[j] += " R ";
-				}else if (brdArr[i][j].getState() == TokenState.BLUE){
+				}else if (brd.getToken(i,j).getState() == TokenState.BLUE){
 					rows[j] += " B ";
-				}else if (brdArr[i][j].getState() == TokenState.EMPTY){
+				}else if (brd.getToken(i,j).getState() == TokenState.EMPTY){
 					rows[j] += " X ";
 				}
 			}
