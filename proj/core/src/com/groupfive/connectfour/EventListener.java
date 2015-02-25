@@ -1,14 +1,20 @@
 package com.groupfive.connectfour;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class EventListener implements InputProcessor{
 	
 	public GameController gc;
+	public Sprite redSwitch;
+	public Sprite blueSwitch;
+	
 	public int gameHeight;
+	public int boardOffsetX;
+	public int boardOffsetY;
+	
 	private int tokenSize = 75;
-	private int leftOffset = 50;
-	private int bottomOffset = 25;
+	
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -30,22 +36,26 @@ public class EventListener implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		System.out.println("SOMEONE CLICKED SOMEWHERE");
-		System.out.println("more specifically, they clicked at: ("+screenX+","+screenY+")");
 
 		//Now that the player has clicked somewhere, let's figure out where exactly they clicked.
 		int y = this.gameHeight - screenY;
 		int x = screenX;
 		
-		System.out.println(y);
-		System.out.println(x);
-		if(x<50 || x>(leftOffset+(7*tokenSize)) || y<25 || y>(bottomOffset+(6*tokenSize))){
-			System.out.println("Out of range.");
-		} else {
+		if(x>boardOffsetX && x<(boardOffsetX+(7*tokenSize)) && y>boardOffsetY && y<(boardOffsetY+(6*tokenSize))){	
+			//Clicked within the board
 			System.out.println("Clicked on the board!");
-			x-=leftOffset;
-			y-=bottomOffset;
+			x-=boardOffsetX;
+			y-=boardOffsetY;
 			gc.insertPiece(x/tokenSize, y/tokenSize);
+		} else if(x>redSwitch.getX() && x<redSwitch.getX() + redSwitch.getWidth() && y>redSwitch.getY() && y<redSwitch.getY() + redSwitch.getHeight()) {
+			//Clicked on the red button
+			gc.switchColour(TokenState.RED);
+		} else if(x>blueSwitch.getX() && x<blueSwitch.getX() + blueSwitch.getWidth() && y>blueSwitch.getY() && y<blueSwitch.getY() + blueSwitch.getHeight()) {
+			//Clicked on the blue button
+			System.out.println("Clicked blue button");
+			gc.switchColour(TokenState.BLUE);
+		} else {
+			System.out.println("Out of range.");
 		}
 		
 		return false;
