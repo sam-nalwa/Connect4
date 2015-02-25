@@ -57,7 +57,13 @@ public class GameController{
 			gameBoard.freePlace(col,row,colourPlacing);
 			return true;
 		}else{
-			return gameBoard.normalInsert(col,colourPlacing);
+			boolean success = gameBoard.normalInsert(col,colourPlacing);
+			//Switch to opposite colour
+			if (colourPlacing == TokenState.RED){
+				colourPlacing = TokenState.BLUE;
+			} else if (colourPlacing == TokenState.BLUE){
+				colourPlacing = TokenState.RED;
+			}
 		}
 	}
 }
