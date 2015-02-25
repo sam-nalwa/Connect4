@@ -72,6 +72,7 @@ public class ConnectFour extends ApplicationAdapter {
 		eventListener.boardOffsetY = this.boardOffsetY;
 		eventListener.blueSwitch = this.blueSwitch;
 		eventListener.redSwitch = this.redSwitch;
+		eventListener.okayButton = this.okayButton;
 	}
 
 	@Override
