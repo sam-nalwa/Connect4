@@ -37,8 +37,8 @@ public class ConnectFour extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		
 		//Load our images
-		redToken = new Texture("red.png");
-		blueToken = new Texture("blue.png");
+		redToken = new Texture("reds.png");
+		blueToken = new Texture("blues.png");
 		board = new Texture("sboard.png");
 		
 		//Set up the camera
