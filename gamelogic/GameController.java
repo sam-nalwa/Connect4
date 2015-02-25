@@ -5,7 +5,7 @@ public class GameController{
 	TokenState colourPlacing;//The colour to be placed at any given time
 	Board gameBoard;
 	boolean freePlaceMode;//true if the game is in free placing mode
-
+	TokenState firstMove;//Used in validating the board in free place mode
 	//This constructor just intializes the game with a randomly chosen player
 	//Used for normal game beginning//
 	public GameController(boolean freePlaceMode){
@@ -28,6 +28,11 @@ public class GameController{
 		//inits board
 		gameBoard = new Board();
 	}
+	public boolean endFreePlace(){
+		if (freePlaceMode){
+			return gameBoard.isValid(firstMove);
+		}
+	}
 	//Chooses a random int (0 or 1) to represent which colour to use
 	private int pickRandomColour(){
 		Random generator = new Random();
@@ -45,6 +50,10 @@ public class GameController{
 	//Returns false in unsuccesful, and true otherwise
 	public boolean insertPiece(int col, int row){
 		if (freePlaceMode){
+			if (firstMove == null){
+				//Saving the colour of the first move for validating purposes
+				firstMove = colourPlacing;
+			}
 			gameBoard.freePlace(col,row,colourPlacing);
 			return true;
 		}else{

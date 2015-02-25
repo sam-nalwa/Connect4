@@ -46,4 +46,40 @@ public class Board{
 			}
 		}
 	}
+	//Method to check if the state of the board is legal (after freeplacemode)
+	public boolean isValid(TokenState firstMove){
+		int redCount = 0;
+		int blueCount = 0;
+		for (int i = 0; i < slots.length; i++){
+			for (int j = 0; j < slots[i].length; j++){
+				if (slots[i][j].getState() != TokenState.EMPTY){
+					//Checking if piece is supported
+					if ((j-1 > -1) && (slots[i][j-1].getState() == TokenState.EMPTY)){
+						return false;
+					}
+					if (slots[i][j].getState() == TokenState.RED){
+						redCount++;
+					} 
+					if (slots[i][j].getState() == TokenState.BLUE){
+						blueCount++;
+					}
+				}
+			}
+		}
+		//TODO figure out conditions for invalid ratio of pieces
+		if (firstMove == TokenState.RED && conditionForRedFirstBeingInValid){
+			return false;
+		} else if (firstMove == TokenState.BLUE && conditionForBlueFirstBeingInValid){
+			return false;
+		}
+		//If there is a winning configuration then the board is invalid
+		if (checkWin() != null){
+			return false;
+		}
+		//Otherwise the board is valid
+		return true;
+	}
+	private TokenState checkWin(){
+		
+	}
 }
