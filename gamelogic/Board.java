@@ -67,9 +67,9 @@ public class Board{
 			}
 		}
 		//TODO figure out conditions for invalid ratio of pieces
-		if (firstMove == TokenState.RED && conditionForRedFirstBeingInValid){
+		if (firstMove == TokenState.RED && (blueCount > redCount || redCount-1 > blueCount)){
 			return false;
-		} else if (firstMove == TokenState.BLUE && conditionForBlueFirstBeingInValid){
+		} else if (firstMove == TokenState.BLUE && (redCount > blueCount || blueCount-1 > redCount)){
 			return false;
 		}
 		//If there is a winning configuration then the board is invalid
@@ -80,6 +80,38 @@ public class Board{
 		return true;
 	}
 	private TokenState checkWin(){
-		
+		int numCols = slots.length;
+		int numRows = slots[0].length;
+		for (int i = 0; i < numCols; i++){ //cycle through columns
+			for (int j = 0; j < numRows; j++){ // cycle through tokens in column
+				if (slots[i][j].getState()!=TokenState.EMPTY){
+					//check top->bottom win (if a token has 3 of the same color beneath it)
+					if (j > 2){ //staying within array
+						if (slots[i][j].getState()==slots[i][j-1].getState()&&slots[i][j].getState()==slots[i][j-2].getState()&&slots[i][j].getState()==slots[i][j-3].getState()){
+							return slots[i][j].getState();
+						}
+					}
+					//check right->left win (if a token has 3 of the same colour to its left)
+					if (i > 2){ //staying within array
+						if (slots[i][j].getState()==slots[i-1][j].getState()&&slots[i][j].getState()==slots[i-2][j].getState()&&slots[i][j].getState()==slots[i-3][j].getState()){
+							return slots[i][j].getState();
+						}
+					}
+					//check diagonal topleft->bottomright win
+					if (i < 4 && j > 2){
+						if (slots[i][j].getState()==slots[i+1][j-1].getState()&&slots[i][j].getState()==slots[i+2][j-2].getState()&&slots[i][j].getState()==slots[i+3][j-3].getState()){
+							return slots[i][j].getState();
+						}
+					}
+					//check diagonal topright->bottomleft win
+					if (i > 2 && j > 2){
+						if (slots[i][j].getState()==slots[i-1][j-1].getState()&&slots[i][j].getState()==slots[i-2][j-2].getState()&&slots[i][j].getState()==slots[i-3][j-3].getState()){
+							return slots[i][j].getState();
+						}
+					}
+				}
+			}
+		}
+		return null;
 	}
 }
