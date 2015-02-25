@@ -2,7 +2,7 @@ package gamelogic;
 
 //This class represents an individual token/piece in its current state
 public class Token{
-	TokenState currentState;
+	private TokenState currentState;
 	public Token(){
 		currentState = TokenState.EMPTY;
 	}
@@ -10,5 +10,8 @@ public class Token{
 	//(this really shouldnt be used more than once per token)
 	public void changeState(TokenState newState){
 		currentState = newState;
+	}
+	public TokenState getState(){
+		return currentState;
 	}
 }

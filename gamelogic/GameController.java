@@ -18,13 +18,13 @@ public class GameController{
 		}
 	}
 	//init for normal play mode
-	private initNormalMode(){
+	private void initNormalMode(){
 		//Sets random first colour and inits board
 		colourPlacing = pickRandomColour();
 		gameBoard = new Board();
 	}
 	//init for freeplace mode
-	private initFreePlaceMode(){
+	private void initFreePlaceMode(){
 		//inits board
 		gameBoard = new Board();
 	}
@@ -39,6 +39,16 @@ public class GameController{
 				return TokenState.BLUE;
 			default:
 				System.out.println("generator failed");
+		}
+	}
+	//Method used for inserting piece in a certain position
+	//Returns false in unsuccesful, and true otherwise
+	public boolean insertPiece(int col, int row){
+		if (freePlaceMode){
+			gameBoard.freePlace(col,row,colourPlacing);
+			return true;
+		}else{
+			return gameBoard.normalInsert(col,colourPlacing);
 		}
 	}
 }
