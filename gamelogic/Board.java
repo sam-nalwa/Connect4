@@ -74,7 +74,7 @@ public class Board{
 		}
 		//
 		//
-		//             (ﾉ'ヮ')ﾉ*:･ﾟ✧ VICKY'S SECTION (ﾉ'ヮ')ﾉ*:･ﾟ✧
+		//     (ﾉ'ヮ')ﾉ*:･ﾟ✧ VICKY'S SECTION (ﾉ'ヮ')ﾉ*:･ﾟ✧
 		//
 		//
 		//figure out conditions for invalid ratio of pieces
