@@ -3,24 +3,38 @@ package gamelogic;
 public class Client{
 	public static void main(String[] args) {
 		GameController game = new GameController(false);
+		System.out.println("Begin 'Normal mode' Testing");
 		printBoard(game.getBoard());
-		System.out.println(game.insertPiece(0,0));
+		game.insertPiece(0,0);
+		System.out.println("Place: (0,0)");
 		printBoard(game.getBoard());
-		System.out.println(game.insertPiece(0,1));
+		game.insertPiece(0,1);
+		System.out.println("Place: (0,1)");
 		printBoard(game.getBoard());
-		System.out.println(game.insertPiece(3,0));
+		game.insertPiece(3,0);
+		System.out.println("Place: (3,0)");
 		printBoard(game.getBoard());
-		System.out.println(game.insertPiece(4,0));
+		game.insertPiece(4,0);
+		System.out.println("Place: (4,0)");
 		printBoard(game.getBoard());
 		game = new GameController(true);
+		System.out.println("Begin 'Free place mode' Testing");
 		printBoard(game.getBoard());
-		System.out.println(game.insertPiece(0,0));
+		game.insertPiece(0,0);
+		System.out.println("Place: (0,0)");
 		printBoard(game.getBoard());
-		System.out.println(game.insertPiece(1,2));
+		game.switchColour();
+		game.insertPiece(1,2);
+		System.out.println("Colour switch");
+		System.out.println("Place: (1,2)");
 		printBoard(game.getBoard());
-		System.out.println(game.insertPiece(3,0));
+		game.insertPiece(3,0);
+		System.out.println("Place: (3,0)");
 		printBoard(game.getBoard());
-		System.out.println(game.insertPiece(3,0));
+		game.switchColour();
+		game.insertPiece(3,0);
+		System.out.println("Colour switch");
+		System.out.println("Place: (3,0)");
 		printBoard(game.getBoard());
 	}
 	private static void printBoard(Token[][] brdArr){
@@ -40,11 +54,11 @@ public class Client{
 			}
 		}
 		System.out.println("");
-		System.out.println("===========================");
+		System.out.println("====================");
 		for (int i = rows.length - 1; i >= 0; i--){
 			System.out.println(rows[i]);
 		}
-		System.out.println("===========================");
+		System.out.println("====================");
 		System.out.println("");
 	}
 }

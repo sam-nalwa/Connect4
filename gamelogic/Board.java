@@ -37,10 +37,8 @@ public class Board{
 			//Try the next slot up
 			return normalPlace(col, row + 1,colour);
 		}else{
-			System.out.println(row);
 			//The token can be placed here, proceed to do so.
 			slots[col][row].changeState(colour);
-			System.out.println(colour);
 			return true;
 		}
 	}
@@ -95,7 +93,7 @@ public class Board{
 			if (c != null) errorCount++;
 		}
 		//If there are no errors, return null
-		if (errorCount = 0) return null;
+		if (errorCount == 0) return null;
 		//Else, return ErrorCode[] with all the different errors
 		//array resizing:
 		else {
