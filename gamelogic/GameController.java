@@ -28,9 +28,14 @@ public class GameController{
 		//inits board
 		gameBoard = new Board();
 	}
-	public boolean endFreePlace(){
+
+	//ends free place mode, returns errors
+	//SHITTY IMPLEMENTATION is the following:
+	//returns errors in an ErrorCode[]
+	//or if there are no errors, returns null
+	public ErrorCode endFreePlace(){
 		if (freePlaceMode){
-			return gameBoard.isValid(firstMove);
+			return gameBoard.findErrors(firstMove);
 		}
 	}
 	//Chooses a random int (0 or 1) to represent which colour to use

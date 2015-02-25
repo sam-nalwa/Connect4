@@ -47,15 +47,17 @@ public class Board{
 		}
 	}
 	//Method to check if the state of the board is legal (after freeplacemode)
-	public boolean isValid(TokenState firstMove){
+	//CHECK WITH GUI TEAM how they want us to return what kind of invalid placement there is???
+	public ErrorCode[] findErrors(TokenState firstMove){
 		int redCount = 0;
 		int blueCount = 0;
+		ErrorCode[] errors = new ErrorCode[3];
 		for (int i = 0; i < slots.length; i++){
 			for (int j = 0; j < slots[i].length; j++){
 				if (slots[i][j].getState() != TokenState.EMPTY){
 					//Checking if piece is supported
 					if ((j-1 > -1) && (slots[i][j-1].getState() == TokenState.EMPTY)){
-						return false;
+						errors[0]=ErrorCode.DEFIESGRAVITY;
 					}
 					if (slots[i][j].getState() == TokenState.RED){
 						redCount++;
@@ -66,18 +68,37 @@ public class Board{
 				}
 			}
 		}
-		//TODO figure out conditions for invalid ratio of pieces
+		//
+		//
+		//             (ﾉ'ヮ')ﾉ*:･ﾟ✧ VICKY'S SECTION (ﾉ'ヮ')ﾉ*:･ﾟ✧
+		//
+		//
+		//figure out conditions for invalid ratio of pieces
 		if (firstMove == TokenState.RED && (blueCount > redCount || redCount-1 > blueCount)){
-			return false;
+			errors[1]=ErrorCode.BADRATIO;
 		} else if (firstMove == TokenState.BLUE && (redCount > blueCount || blueCount-1 > redCount)){
-			return false;
+			errors[1]=ErrorCode.BADRATIO;
 		}
 		//If there is a winning configuration then the board is invalid
 		if (checkWin() != null){
-			return false;
+			errors[2]=ErrorCode.NOWINNINGALLOWED;
 		}
-		//Otherwise the board is valid
-		return true;
+
+		int errorCount = 0
+		for (ErrorCode c: errors){
+			if (c != null) errorCount++
+		}
+		//If there are no errors, return null
+		if (c = 0) return null;
+		//Else, return ErrorCode[] with all the different errors
+		//array resizing:
+		else {
+			finalErrors ErrorCode[] = new ErrorCode[c];
+			for (int i = 0; i < errorCount; i ++){
+				if (errors[i] != null) finalErrors[i] = errors[i]
+			}
+		return finalErrors;
+		}
 	}
 	private TokenState checkWin(){
 		int numCols = slots.length;
