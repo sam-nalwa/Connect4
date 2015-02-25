@@ -16,6 +16,7 @@ public class ConnectFour extends ApplicationAdapter {
 	private Texture board;
 	private Sprite redSwitch;
 	private Sprite blueSwitch;
+	private Sprite okayButton;
 	
 	//SpriteBatch is used to draw 2D images
 	private SpriteBatch batch;
@@ -25,7 +26,7 @@ public class ConnectFour extends ApplicationAdapter {
 	int gameHeight = 600;
 	int gameWidth = 800;
 	int boardOffsetX = 140; // Distance from left edge of screen
-	int boardOffsetY = 50; //Distance from bottom
+	int boardOffsetY = 100; //Distance from bottom
 	
 	//Game Controller & Input Handler
 	private GameController gameController;
@@ -48,6 +49,7 @@ public class ConnectFour extends ApplicationAdapter {
 		
 		redSwitch = new Sprite(redToken);
 		blueSwitch = new Sprite(blueToken);
+		okayButton = new Sprite(new Texture("ok.png"));
 		
 		//Set up the camera
 		camera = new OrthographicCamera();
@@ -56,10 +58,10 @@ public class ConnectFour extends ApplicationAdapter {
 		//Set up the game logic (initializing in free place mode)
 		gameController = new GameController(true);
 		
-		//Draw the two color switchers
+		//Draw the two color switchers & the button
 		redSwitch.setPosition(25, this.gameHeight-100);
 		blueSwitch.setPosition(this.gameWidth-100,this.gameHeight-100);
-
+		okayButton.setPosition(this.gameWidth/2 - 75,10);
 		
 		//Event listener!
 		eventListener = new EventListener();
@@ -86,6 +88,7 @@ public class ConnectFour extends ApplicationAdapter {
 		
 		redSwitch.draw(batch);
 		blueSwitch.draw(batch);
+		okayButton.draw(batch);
 		
 		//Draw the two player switchers
 		//batch.draw(redToken,25,this.gameHeight-100);

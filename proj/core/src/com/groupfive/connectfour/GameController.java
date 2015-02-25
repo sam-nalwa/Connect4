@@ -76,4 +76,8 @@ public class GameController{
 			return success;
 		}
 	}
+	
+	public boolean isFreePlacing(){
+		return this.freePlaceMode;
+	}
 }

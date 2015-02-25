@@ -8,6 +8,7 @@ public class EventListener implements InputProcessor{
 	public GameController gc;
 	public Sprite redSwitch;
 	public Sprite blueSwitch;
+	public Sprite okayButton;
 	
 	public int gameHeight;
 	public int boardOffsetX;
@@ -54,6 +55,11 @@ public class EventListener implements InputProcessor{
 			//Clicked on the blue button
 			System.out.println("Clicked blue button");
 			gc.switchColour(TokenState.BLUE);
+		} else if(x>okayButton.getX() && x<okayButton.getX() + okayButton.getWidth() && y>okayButton.getY() && y<okayButton.getY() + okayButton.getHeight()) {
+			System.out.println("Clicked the okay button");
+			if(gc.isFreePlacing()){
+				gc.endFreePlace();
+			}
 		} else {
 			System.out.println("Out of range.");
 		}
