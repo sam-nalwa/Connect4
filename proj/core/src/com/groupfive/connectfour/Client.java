@@ -1,5 +1,8 @@
 package com.groupfive.connectfour;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Client{
 	public static void main(String[] args) {
 		GameController game = new GameController(false);
@@ -38,13 +41,14 @@ public class Client{
 		System.out.println("Place: (3,0)");
 		
 		//testing error throwing
-		game.reset();
+		game = new GameController(true);
 		game.insertPiece(0, 0);
 		game.insertPiece(0, 1);
 		
 		printBoard(game.getBoard());
-		if (game.endFreePlace()!=null){
-			for (ErrorCode c : game.endFreePlace()){
+		List<ErrorCode> errors =  game.endFreePlace();
+		if (!errors.isEmpty()){
+			for (ErrorCode c : errors){
 				System.out.println(c);
 			}
 		}

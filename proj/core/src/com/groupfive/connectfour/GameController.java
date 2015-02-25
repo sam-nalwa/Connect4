@@ -1,4 +1,6 @@
 package com.groupfive.connectfour;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 //This class is used for controlling the rest of the game logic
 public class GameController{
@@ -23,8 +25,8 @@ public class GameController{
 	//SHITTY IMPLEMENTATION is the following:
 	//returns errors in an ErrorCode[]
 	//or if there are no errors, returns null
-	public ErrorCode[] endFreePlace(){
-		if (freePlaceMode){
+	public List<ErrorCode> endFreePlace(){
+		if (this.freePlaceMode){
 			freePlaceMode = !freePlaceMode;
 			return gameBoard.findErrors(firstMove);
 		}else{

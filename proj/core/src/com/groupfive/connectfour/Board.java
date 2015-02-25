@@ -59,10 +59,10 @@ public class Board{
 	}
 	//Method to check if the state of the board is legal (after freeplacemode)
 	//CHECK WITH GUI TEAM how they want us to return what kind of invalid placement there is???
-	List findErrors(TokenState firstMove){
+	List<ErrorCode> findErrors(TokenState firstMove){
 		int redCount = 0;
 		int blueCount = 0;
-		List errors = new ArrayList();
+		List<ErrorCode> errors = new ArrayList<ErrorCode>();
 		for (int i = 0; i < slots.length; i++){
 			for (int j = 0; j < slots[i].length; j++){
 				if (slots[i][j].getState() != TokenState.EMPTY){
@@ -94,11 +94,7 @@ public class Board{
 		if (checkWin() != null){
 			errors.add(ErrorCode.NOWINNINGALLOWED);
 		}
-
-		//If there are no errors, return null
-		if (errors.isEmpty()) return null;
-		//Else, return ErrorCode[] with all the different errors
-		//array resizing:
+		//return list of errors
 		return errors;
 	}
 	
