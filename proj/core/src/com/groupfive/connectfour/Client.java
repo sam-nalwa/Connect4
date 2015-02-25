@@ -17,6 +17,7 @@ public class Client{
 		game.insertPiece(4,0);
 		System.out.println("Place: (4,0)");
 		printBoard(game.getBoard());
+		
 		game = new GameController(true);
 		System.out.println("Begin 'Free place mode' Testing");
 		printBoard(game.getBoard());
@@ -35,7 +36,18 @@ public class Client{
 		game.insertPiece(3,0);
 		System.out.println("Colour switch");
 		System.out.println("Place: (3,0)");
+		
+		//testing error throwing
+		game.reset();
+		game.insertPiece(0, 0);
+		game.insertPiece(0, 1);
+		
 		printBoard(game.getBoard());
+		if (game.endFreePlace()!=null){
+			for (ErrorCode c : game.endFreePlace()){
+				System.out.println(c);
+			}
+		}
 	}
 	private static void printBoard(Board brd){
 		String[] rows = new String[6];
@@ -53,6 +65,7 @@ public class Client{
 				}
 			}
 		}
+		
 		System.out.println("");
 		System.out.println("====================");
 		for (int i = rows.length - 1; i >= 0; i--){

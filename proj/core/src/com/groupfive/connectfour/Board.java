@@ -1,5 +1,8 @@
 package com.groupfive.connectfour;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //This class represents the game board/grid and all its legal operations
 public class Board{
 	private Token[][] slots; //This 2d array will store all of the game Tokens
@@ -56,16 +59,16 @@ public class Board{
 	}
 	//Method to check if the state of the board is legal (after freeplacemode)
 	//CHECK WITH GUI TEAM how they want us to return what kind of invalid placement there is???
-	ErrorCode[] findErrors(TokenState firstMove){
+	List findErrors(TokenState firstMove){
 		int redCount = 0;
 		int blueCount = 0;
-		ErrorCode[] errors = new ErrorCode[3];
+		List errors = new ArrayList();
 		for (int i = 0; i < slots.length; i++){
 			for (int j = 0; j < slots[i].length; j++){
 				if (slots[i][j].getState() != TokenState.EMPTY){
 					//Checking if piece is supported
 					if ((j-1 > -1) && (slots[i][j-1].getState() == TokenState.EMPTY)){
-						errors[0]=ErrorCode.DEFIESGRAVITY;
+						errors.add(ErrorCode.DEFIESGRAVITY);
 					}
 					if (slots[i][j].getState() == TokenState.RED){
 						redCount++;
@@ -82,32 +85,23 @@ public class Board{
 		//
 		//
 		//figure out conditions for invalid ratio of pieces
-		if (firstMove == TokenState.RED && (blueCount > redCount || redCount-1 > blueCount)){
-			errors[1]=ErrorCode.BADRATIO;
-		} else if (firstMove == TokenState.BLUE && (redCount > blueCount || blueCount-1 > redCount)){
-			errors[1]=ErrorCode.BADRATIO;
+		if (firstMove == TokenState.RED && ((blueCount > redCount) || (redCount-1 > blueCount))){
+			errors.add(ErrorCode.BADRATIO);
+		} else if (firstMove == TokenState.BLUE && ((redCount > blueCount) || (blueCount-1 > redCount))){
+			errors.add(ErrorCode.BADRATIO);
 		}
 		//If there is a winning configuration then the board is invalid
 		if (checkWin() != null){
-			errors[2]=ErrorCode.NOWINNINGALLOWED;
+			errors.add(ErrorCode.NOWINNINGALLOWED);
 		}
 
-		int errorCount = 0;
-		for (ErrorCode c: errors){
-			if (c != null) errorCount++;
-		}
 		//If there are no errors, return null
-		if (errorCount == 0) return null;
+		if (errors.isEmpty()) return null;
 		//Else, return ErrorCode[] with all the different errors
 		//array resizing:
-		else {
-			ErrorCode[] finalErrors = new ErrorCode[errorCount];
-			for (int i = 0; i < errorCount; i ++){
-				if (errors[i] != null) finalErrors[i] = errors[i];
-			}
-		return finalErrors;
-		}
+		return errors;
 	}
+	
 	TokenState checkWin(){
 		int numCols = slots.length;
 		int numRows = slots[0].length;
