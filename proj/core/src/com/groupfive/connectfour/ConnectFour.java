@@ -7,13 +7,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ConnectFour extends ApplicationAdapter {
+	
+	//We need to load all of the assets here
 	SpriteBatch batch;
 	Texture img;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("red.png");
 	}
 
 	@Override
