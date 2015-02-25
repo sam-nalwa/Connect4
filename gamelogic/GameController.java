@@ -1,5 +1,5 @@
 package gamelogic;
-
+import java.util.Random;
 //This class is used for controlling the rest of the game logic
 public class GameController{
 	TokenState colourPlacing;//The colour to be placed at any given time
@@ -16,6 +16,11 @@ public class GameController{
 		}else{
 			initNormalMode();
 		}
+	}
+	//For now just returning array itself.. Will change for @niko and @sam?
+	public Token[][] getBoard(){
+
+		return gameBoard.getBoard();
 	}
 	//init for normal play mode
 	private void initNormalMode(){
@@ -39,7 +44,7 @@ public class GameController{
 		}
 	}
 	//Chooses a random int (0 or 1) to represent which colour to use
-	private int pickRandomColour(){
+	private TokenState pickRandomColour(){
 		Random generator = new Random();
 		int firstMove = generator.nextInt(2 - 0);
 		switch (firstMove) {
@@ -50,6 +55,7 @@ public class GameController{
 			default:
 				System.out.println("generator failed");
 		}
+		return null;
 	}
 	//Method used for inserting piece in a certain position
 	//Returns false in unsuccesful, and true otherwise
@@ -62,13 +68,14 @@ public class GameController{
 			gameBoard.freePlace(col,row,colourPlacing);
 			return true;
 		}else{
-			boolean success = gameBoard.normalInsert(col,colourPlacing);
+			boolean success = gameBoard.normalPlace(col,colourPlacing);
 			//Switch to opposite colour
 			if (colourPlacing == TokenState.RED){
 				colourPlacing = TokenState.BLUE;
 			} else if (colourPlacing == TokenState.BLUE){
 				colourPlacing = TokenState.RED;
 			}
+			return success;
 		}
 	}
 }
