@@ -1,15 +1,42 @@
 package gamelogic;
 
+//This class is used for controlling the rest of the game logic
 public class GameController{
-	TokenState colourPlacing;
-	public GameController(){
+	TokenState colourPlacing;//The colour to be placed at any given time
+	Board gameBoard;
+	boolean freePlaceMode;//true if the game is in free placing mode
+
+	//This constructor just intializes the game with a randomly chosen player
+	//Used for normal game beginning//
+	public GameController(boolean freePlaceMode){
+		this.freePlaceMode = freePlaceMode;//Storing requested mode
+		//Delegate to appropriate game initializer
+		if (freePlaceMode){
+			initFreePlaceMode();
+		}else{
+			initNormalMode();
+		}
+	}
+	//init for normal play mode
+	private initNormalMode(){
+		//Sets random first colour and inits board
+		colourPlacing = pickRandomColour();
+		gameBoard = new Board();
+	}
+	//init for freeplace mode
+	private initFreePlaceMode(){
+		//inits board
+		gameBoard = new Board();
+	}
+	//Chooses a random int (0 or 1) to represent which colour to use
+	private int pickRandomColour(){
 		Random generator = new Random();
 		int firstMove = generator.nextInt(2 - 0);
 		switch (firstMove) {
 			case 0:
-				colourPlacing = TokenState.RED;
+				return TokenState.RED;
 			case 1:
-				colourPlacing = TokenState.BLUE;
+				return TokenState.BLUE;
 			default:
 				System.out.println("generator failed");
 		}
