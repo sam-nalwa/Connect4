@@ -75,7 +75,7 @@ public class GameScreen implements Screen {
 		eventListener.boardOffsetY = this.boardOffsetY;
 		eventListener.blueSwitch = this.blueSwitch;
 		eventListener.redSwitch = this.redSwitch;
-
+		eventListener.okayButton = this.okayButton;
 		
 	}
 	
