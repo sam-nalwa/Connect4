@@ -1,41 +1,19 @@
 package com.groupfive.connectfour;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ConnectFour extends ApplicationAdapter {
+public class ConnectFour extends Game {
+
 	
-	//We need to load all of the assets here
-	private Texture redToken;
-	private Texture blueToken;
-	private Texture board;
-	private Sprite redSwitch;
-	private Sprite blueSwitch;
-	private Sprite okayButton;
-	
-	//SpriteBatch is used to draw 2D images
-	private SpriteBatch batch;
-	
-	//Orthographic Camera to display world
-	private OrthographicCamera camera;
-	int gameHeight = 600;
-	int gameWidth = 800;
-	int boardOffsetX = 140; // Distance from left edge of screen
-	int boardOffsetY = 100; //Distance from bottom
-	
-	//Game Controller & Input Handler
-	private GameController gameController;
-	private EventListener eventListener;
-	
-	//Board state saved here
-	private Board boardState;
-	
-	
+<<<<<<< Updated upstream
 	@Override
 	public void create () {
 		
@@ -74,42 +52,24 @@ public class ConnectFour extends ApplicationAdapter {
 		eventListener.redSwitch = this.redSwitch;
 		eventListener.okayButton = this.okayButton;
 	}
+=======
+    public SpriteBatch batch;
+    public BitmapFont font;
+>>>>>>> Stashed changes
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0.45f, 0.55f,0.65f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		//Load the current board state
-		boardState = gameController.getBoard();
+    public void create() {
+        batch = new SpriteBatch();
+        //Use LibGDX's default Arial font.
+        font = new BitmapFont();
+        this.setScreen(new MMenu(this));
+    }
 
-		
-		//DRAW ERRTHING
-		batch.begin();
-		
-		redSwitch.draw(batch);
-		blueSwitch.draw(batch);
-		okayButton.draw(batch);
-		
-		//Draw the two player switchers
-		//batch.draw(redToken,25,this.gameHeight-100);
-		//batch.draw(blueToken,this.gameWidth-100,this.gameHeight-100);
+    public void render() {
+        super.render(); //important!
+    }
 
-		for (int c = 0; c < boardState.colLength; c++){
-			for (int r = 0; r < boardState.rowLength; r++){
-				if (boardState.getToken(c,r).getState() == TokenState.RED){
-					//Draw a red token in the correct location
-					batch.draw(redToken,boardOffsetX+c*75,boardOffsetY+r*75);
-				}else if (boardState.getToken(c,r).getState() == TokenState.BLUE){
-					batch.draw(blueToken,boardOffsetX+c*75,boardOffsetY+r*75);
-				}else if (boardState.getToken(c,r).getState() == TokenState.EMPTY){
-					//Don't draw anything
-				}
-			}
-		}
-		
-		//Finally, draw the board on top of everything else
-		batch.draw(board, boardOffsetX, boardOffsetY);
-		batch.end();
-	}
+    public void dispose() {
+        batch.dispose();
+        font.dispose();
+    }
 }
