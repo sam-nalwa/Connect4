@@ -27,7 +27,10 @@ public class GameController{
 	//or if there are no errors, returns null
 	public List<ErrorCode> endFreePlace(){
 		if (this.freePlaceMode){
-			freePlaceMode = !freePlaceMode;
+			List<ErrorCode> errs = gameBoard.findErrors(firstMove);
+			if (errs.isEmpty()){
+				freePlaceMode = !freePlaceMode;
+			}
 			return gameBoard.findErrors(firstMove);
 		}else{
 			return null;
