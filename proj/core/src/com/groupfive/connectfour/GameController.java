@@ -52,6 +52,10 @@ public class GameController{
 			colourPlacing = TokenState.RED;
 		}
 	}
+	//Switches to given colour
+	public void switchColour(TokenState newState){
+		colourPlacing = newState;
+	}
 	//Resets board to empty
 	public void reset(){
 		gameBoard.clear();
