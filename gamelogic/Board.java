@@ -90,9 +90,9 @@ public class Board{
 			errors[2]=ErrorCode.NOWINNINGALLOWED;
 		}
 
-		int errorCount = 0
+		int errorCount = 0;
 		for (ErrorCode c: errors){
-			if (c != null) errorCount++
+			if (c != null) errorCount++;
 		}
 		//If there are no errors, return null
 		if (c = 0) return null;
@@ -101,7 +101,7 @@ public class Board{
 		else {
 			finalErrors ErrorCode[] = new ErrorCode[c];
 			for (int i = 0; i < errorCount; i ++){
-				if (errors[i] != null) finalErrors[i] = errors[i]
+				if (errors[i] != null) finalErrors[i] = errors[i];
 			}
 		return finalErrors;
 		}
