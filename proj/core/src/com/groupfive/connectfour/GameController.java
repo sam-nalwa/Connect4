@@ -55,6 +55,7 @@ public class GameController{
 	//Resets board to empty
 	public void reset(){
 		gameBoard.clear();
+		//yo
 	}
 	//Method used for inserting piece in a certain position
 	//Returns false in unsuccesful, and true otherwise
