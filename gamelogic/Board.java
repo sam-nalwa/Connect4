@@ -95,11 +95,11 @@ public class Board{
 			if (c != null) errorCount++;
 		}
 		//If there are no errors, return null
-		if (c = 0) return null;
+		if (errorCount = 0) return null;
 		//Else, return ErrorCode[] with all the different errors
 		//array resizing:
 		else {
-			finalErrors ErrorCode[] = new ErrorCode[c];
+			ErrorCode[] finalErrors = new ErrorCode[errorCount];
 			for (int i = 0; i < errorCount; i ++){
 				if (errors[i] != null) finalErrors[i] = errors[i];
 			}
