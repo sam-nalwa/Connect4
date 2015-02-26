@@ -1,5 +1,8 @@
 package com.groupfive.connectfour;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -17,9 +20,9 @@ public class GameScreen implements Screen {
 	private Texture redToken;
 	private Texture blueToken;
 	private Texture board;
-	private Sprite redSwitch;
-	private Sprite blueSwitch;
-	private Sprite okayButton;
+	
+	//Buttons
+	private HashMap<String,Sprite> buttons;
 	
 	//SpriteBatch is used to draw 2D images
 	SpriteBatch batch;
@@ -50,9 +53,14 @@ public class GameScreen implements Screen {
 		blueToken = new Texture("blues.png");
 		board = new Texture("sboard.png");
 		
-		redSwitch = new Sprite(redToken);
-		blueSwitch = new Sprite(blueToken);
-		okayButton = new Sprite(new Texture("ok.png"));
+		//Load buttons
+		buttons = new HashMap<String,Sprite>();
+		buttons.put("redSwitch", new Sprite(redToken));
+			buttons.get("redSwitch").setPosition(25, this.gameHeight-100);
+		buttons.put("blueSwitch", new Sprite(blueToken));
+			buttons.get("blueSwitch").setPosition(this.gameWidth-100,this.gameHeight-100);
+		buttons.put("okayButton", new Sprite(new Texture("ok.png")));
+			buttons.get("okayButton").setPosition(this.gameWidth/2 - 75,10);
 		
 		//Set up the camera
 		camera = new OrthographicCamera();
@@ -61,10 +69,6 @@ public class GameScreen implements Screen {
 		//Set up the game logic (initializing in free place mode)
 		gameController = new GameController(true);
 		
-		//Draw the two color switchers & the button
-		redSwitch.setPosition(25, this.gameHeight-100);
-		blueSwitch.setPosition(this.gameWidth-100,this.gameHeight-100);
-		okayButton.setPosition(this.gameWidth/2 - 75,10);
 		
 		//Event listener!
 		eventListener = new EventListener();
@@ -73,9 +77,7 @@ public class GameScreen implements Screen {
 		eventListener.gameHeight = this.gameHeight;
 		eventListener.boardOffsetX = this.boardOffsetX;
 		eventListener.boardOffsetY = this.boardOffsetY;
-		eventListener.blueSwitch = this.blueSwitch;
-		eventListener.redSwitch = this.redSwitch;
-		eventListener.okayButton = this.okayButton;
+		eventListener.buttons = this.buttons;
 		
 	}
 	
@@ -98,14 +100,15 @@ public class GameScreen implements Screen {
 		//DRAW ERRTHING
 		batch.begin();
 		
-		redSwitch.draw(batch);
-		blueSwitch.draw(batch);
-		okayButton.draw(batch);
 		
-		//Draw the two player switchers
-		//batch.draw(redToken,25,this.gameHeight-100);
-		//batch.draw(blueToken,this.gameWidth-100,this.gameHeight-100);
-
+		//If we're in free placement mode, then draw the stuff associated with it
+		if(gameController.isFreePlacing()){
+			buttons.get("okayButton").draw(batch);
+			buttons.get("redSwitch").draw(batch);
+			buttons.get("blueSwitch").draw(batch);
+		}
+		
+		//Draw all of the placed tokens
 		for (int c = 0; c < boardState.colLength; c++){
 			for (int r = 0; r < boardState.rowLength; r++){
 				if (boardState.getToken(c,r).getState() == TokenState.RED){
@@ -119,13 +122,41 @@ public class GameScreen implements Screen {
 			}
 		}
 		
-		//Finally, draw the board on top of everything else
+		//Draw the board on to of the tokens
 		batch.draw(board, boardOffsetX, boardOffsetY);
 		
 		
-		//When I said finally last time I lied, this is actually what we do finally.
-		if(eventListener.errorList != null){
-			System.out.println("yo");
+		//If we have any errors, draw their error screens
+		// We check if the error exists, then we add the button to the list of buttons and draw it.
+		if(eventListener.errorList != null && !eventListener.errorList.isEmpty()){
+			if(eventListener.errorList.contains(ErrorCode.DEFIESGRAVITY)){
+				//Check if it's already in the map of buttons
+				if(!buttons.containsKey("gravityError")){
+					buttons.put("gravityError", new Sprite(new Texture("gravityError.jpg")));
+					buttons.get("gravityError").setPosition(this.gameWidth/2 - 175,this.gameHeight/2 - 75);
+				}
+				
+				//Draw dat
+				buttons.get("gravityError").draw(batch);
+			} else if(eventListener.errorList.contains(ErrorCode.BADRATIO)){
+				//Check if it's already in the map of buttons
+				if(!buttons.containsKey("ratioError")){
+					buttons.put("ratioError", new Sprite(new Texture("ratioError.jpg")));
+					buttons.get("ratioError").setPosition(this.gameWidth/2 - 175,this.gameHeight/2 - 75);
+				}
+				
+				//Draw dat
+				buttons.get("ratioError").draw(batch);
+			} else if(eventListener.errorList.contains(ErrorCode.NOWINNINGALLOWED)){
+				//Check if it's already in the map of buttons
+				if(!buttons.containsKey("winError")){
+					buttons.put("winError", new Sprite(new Texture("winError.jpg")));
+					buttons.get("winError").setPosition(this.gameWidth/2 - 175,this.gameHeight/2 - 75);
+				}
+				
+				//Draw dat
+				buttons.get("winError").draw(batch);
+			}
 		}
 		
 		batch.end();

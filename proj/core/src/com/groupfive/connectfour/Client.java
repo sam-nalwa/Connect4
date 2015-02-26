@@ -1,6 +1,7 @@
 package com.groupfive.connectfour;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Client{
@@ -53,7 +54,7 @@ public class Client{
 		game.insertPiece(3, 3);
 		
 		printBoard(game.getBoard());
-		List<ErrorCode> errors =  game.endFreePlace();
+		HashSet<ErrorCode> errors =  game.endFreePlace();
 		if (!errors.isEmpty()){
 			for (ErrorCode c : errors){
 				System.out.println(c);

@@ -1,6 +1,7 @@
 package com.groupfive.connectfour;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 //This class represents the game board/grid and all its legal operations
@@ -59,10 +60,10 @@ public class Board{
 	}
 	//Method to check if the state of the board is legal (after freeplacemode)
 	//CHECK WITH GUI TEAM how they want us to return what kind of invalid placement there is???
-	List<ErrorCode> findErrors(TokenState firstMove){
+	HashSet<ErrorCode> findErrors(TokenState firstMove){
 		int redCount = 0;
 		int blueCount = 0;
-		List<ErrorCode> errors = new ArrayList<ErrorCode>();
+		HashSet<ErrorCode> errors = new HashSet<ErrorCode>();
 		for (int i = 0; i < slots.length; i++){
 			for (int j = 0; j < slots[i].length; j++){
 				if (slots[i][j].getState() != TokenState.EMPTY){
