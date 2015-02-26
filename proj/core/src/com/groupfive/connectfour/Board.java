@@ -37,7 +37,7 @@ public class Board{
 	}
 	//This really shouldnt be called with a row != 0 other unless done recursively
 	private boolean normalPlace(int col, int row, TokenState colour){
-		if (col >= slots.length){
+		if (row > slots[col].length - 1){
 			//Out of bounds
 			return false;
 		}
