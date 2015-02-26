@@ -53,7 +53,7 @@ public class GameControllerTest {
 		assertNotSame(gmBrd.getToken(0,0),gmBrd.getToken(0,1));
 		gameTester.switchColour(gmBrd.getToken(0,0).getState());
 		gameTester.insertPiece(0,2);
-		assertEquals(gmBrd.getToken(0,0),gmBrd.getToken(0,2));
+		assertEquals(gmBrd.getToken(0,0).getState(),gmBrd.getToken(0,2).getState());
 	}
 
 	@Test
