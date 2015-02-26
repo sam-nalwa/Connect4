@@ -55,7 +55,23 @@ public class GameControllerTest {
 		gameTester.insertPiece(0,2);
 		assertEquals(gmBrd.getToken(0,0).getState(),gmBrd.getToken(0,2).getState());
 	}
-
+	@Test
+	public final void testPickRandomColour() {
+		gameTester = new GameController(true);
+		int blueCount = 0;
+		int redCount = 0;
+		for (int i = 0; i <=1000;i++){
+			TokenState randState = gameTester.pickRandomColour();
+			if (randState == TokenState.RED){
+				redCount++;
+			}else if (randState == TokenState.BLUE){
+				blueCount++;
+			}else{
+				fail("Unexpected output");
+			}
+		}
+		assertTrue(Math.abs(redCount - blueCount) < 100);//Good enough randomness?
+	}
 	@Test
 	public final void testReset() {
 		gameTester = new GameController(true);

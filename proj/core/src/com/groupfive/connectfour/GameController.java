@@ -36,7 +36,7 @@ public class GameController{
 		}
 	}
 	//Chooses a random int (0 or 1) to represent which colour to use
-	private TokenState pickRandomColour(){
+	public TokenState pickRandomColour(){
 		Random generator = new Random();
 		int firstMove = generator.nextInt(2 - 0);
 		switch (firstMove) {
