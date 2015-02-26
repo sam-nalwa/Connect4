@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
 	public Object font;
 	final ConnectFour game;
 	
-	public GameScreen(final ConnectFour gamee){
+	public GameScreen(final ConnectFour gamee,boolean check){
 		this.game=gamee;
 		
 		batch = new SpriteBatch();
@@ -69,7 +69,7 @@ public class GameScreen implements Screen {
 		camera.setToOrtho(false,this.gameWidth,this.gameHeight);
 		
 		//Set up the game logic (initializing in free place mode)
-		gameController = new GameController(true);
+		gameController = new GameController(check);
 		
 		
 		//Event listener!

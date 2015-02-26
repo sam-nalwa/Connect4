@@ -1,18 +1,15 @@
 package com.groupfive.connectfour;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -24,15 +21,13 @@ public class MMenu implements Screen{
 	final ConnectFour game;
 	OrthographicCamera camera;
 	
-	 private TextureRegion bkTexture;
+	 private TextureRegion textureframe;
 	 private SpriteBatch batch;
 	 private Stage stage;
 	 private TextureAtlas atlas;
 	 private Skin skin;
 	 private Table table;
-	 private TextButton buttonExit, buttonPlay;
-	 private Label heading;
-	 private BitmapFont title;
+	 private TextButton buttonExit, buttonPlay, buttonCreate;
 	 
 	
 	
@@ -45,39 +40,26 @@ public class MMenu implements Screen{
 
 	@Override
 	public void render(float delta) {
-		//Gdx.gl.glClearColor(0, 0, 10f, 1);
+		//render the main screen graphics
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
- 
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
- 
- 
 		stage.act(delta);
-		 batch.begin();
-		 batch.draw(bkTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		 batch.end();
-		 stage.draw();
+		batch.begin();
+		batch.draw(textureframe, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		batch.end();
+		stage.draw();
 		 
-			game.batch.begin();
-			//((BitmapFont) game.font).draw(game.batch, "AA4 KNAVES : NEW EDITION CONNECT 4", 100, 700);
-			//((BitmapFont) game.font).draw(game.batch, "Tap anywhere to begin!", 100, 650);
-			game.batch.end();
-			
-		 
-		/*
-		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-			game.setScreen(new GameScreen(game));
-			dispose();
-		}
-		*/
-		 
+		game.batch.begin();
+		game.batch.end();
+				 
 		
 	}
 	
 	@Override
 	public void show() {
 		batch = new SpriteBatch();
-		 bkTexture = new TextureRegion(new Texture(Gdx.files.internal("background.png")),0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		 textureframe = new TextureRegion(new Texture(Gdx.files.internal("background.png")),0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		 
 		 stage = new Stage();
 		 
@@ -89,22 +71,47 @@ public class MMenu implements Screen{
 		 table = new Table(skin);
 		 table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		 
-		 //Button PLAY
+		 //Create and implent the PLAY button
 		 buttonPlay = new TextButton("Play", skin);
 		 buttonPlay.pad(20);
 		 buttonPlay.addListener(new ClickListener(){
 			 
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
-		 game.setScreen(new GameScreen(game));
+		 game.setScreen(new GameScreen(game,false));
 		 }
 		 });
 		 
-		 table.add(buttonPlay);
-		 table.getCell(buttonPlay).spaceBottom(10);
-		 table.row();
+		//Create and implement the Create Board Button
+		 buttonCreate = new TextButton("Create Board", skin);
+		 buttonCreate.pad(20);
+		 buttonCreate.addListener(new ClickListener(){
+		 @Override
+		 public void clicked(InputEvent event, float x, float y) {
+		 game.setScreen(new GameScreen(game,true));
+		 }
+		 });
 		 
-		 table.debug();
+		//Create and implement the EXIT button
+		 buttonExit = new TextButton("Exit", skin);
+		 buttonExit.pad(20);
+		 buttonExit.addListener(new ClickListener(){
+		 @Override
+		 public void clicked(InputEvent event, float x, float y) {
+		 Gdx.app.exit();
+		 }
+		 });
+		 
+
+		 table.add(buttonPlay);
+		 table.getCell(buttonPlay).spaceBottom(20);
+		 table.row();
+		 table.add(buttonCreate);
+		 table.getCell(buttonCreate).spaceBottom(20);
+		 table.row();
+		 table.add(buttonExit);
+		 table.getCell(buttonExit).spaceBottom(20);
+		 table.bottom();
 		 stage.addActor(table);
 		 
 	}
