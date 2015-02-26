@@ -15,15 +15,6 @@ public class Token{
 		}
 	}
 	public TokenState getState(){
-		//Don't want to return a reference because it could be changed
-		if (currentState == TokenState.EMPTY){
-			return TokenState.EMPTY;
-		}
-		if (currentState == TokenState.RED){
-			return TokenState.RED;
-		}
-		//Because java can't tell that its disjoint
-		assert (currentState == TokenState.BLUE) : "Impossible state";
-		return TokenState.BLUE;
+		return currentState;
 	}
 }
