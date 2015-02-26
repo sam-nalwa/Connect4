@@ -86,6 +86,14 @@ public class EventListener implements InputProcessor{
 			} else if(buttonName=="blueSwitch"){
 				//Swap to blue
 				gc.switchColour(TokenState.BLUE);
+			} else if(buttonName=="resetButton"){
+				gc.reset();
+				errorList = new HashSet<ErrorCode>();
+				buttons.remove("gravityError");
+				buttons.remove("ratioError");
+				buttons.remove("winError");
+			} else {
+				System.out.println("Button not recognized: "+buttonName);
 			}
 		} else if((errorList == null || errorList.isEmpty()) && x>boardOffsetX && x<(boardOffsetX+(7*tokenSize)) && y>boardOffsetY && y<(boardOffsetY+(6*tokenSize))){	
 			//Clicked within the board
