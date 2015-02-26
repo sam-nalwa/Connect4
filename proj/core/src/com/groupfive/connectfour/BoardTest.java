@@ -3,6 +3,7 @@ package com.groupfive.connectfour;
 import static org.junit.Assert.*;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.After;
@@ -86,7 +87,7 @@ public class BoardTest {
 		assert(b.findErrors(TokenState.RED)==null);
 		b.freePlace(0, 3, TokenState.BLUE);
 		//check for 1 defy-gravity error
-		List<ErrorCode> errs = b.findErrors(TokenState.BLUE);
+		HashSet<ErrorCode> errs = b.findErrors(TokenState.BLUE);
 		assert(errs.size()==1);
 		assertTrue(errs.contains(ErrorCode.DEFIESGRAVITY));
 		b.clear();
