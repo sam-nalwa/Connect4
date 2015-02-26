@@ -15,7 +15,7 @@ public class Token{
 		}
 	}
 	public TokenState getState(){
-		//Don't want to return a reference because it coould be changed
+		//Don't want to return a reference because it could be changed
 		if (currentState == TokenState.EMPTY){
 			return TokenState.EMPTY;
 		}
