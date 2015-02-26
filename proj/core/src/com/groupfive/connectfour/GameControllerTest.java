@@ -1,13 +1,12 @@
 package com.groupfive.connectfour;
 
+
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 public class GameControllerTest {
-	GameController g;
+	GameController gameTester;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -19,28 +18,40 @@ public class GameControllerTest {
 
 	@Test
 	public final void testGameController() {
-	g = new GameController(true);
-	assertTrue(g.isFreePlacing());
-	g = new GameController(false);
-	assertFalse(g.isFreePlacing());
+		gameTester = new GameController(true);
+		assertTrue(gameTester.isFreePlacing());
+		gameTester = new GameController(false);
+		assertFalse(gameTester.isFreePlacing());
 	}
 
 	@Test
 	public final void testGetBoard() {
-		g = new GameController(true);
-		assert(g.getBoard().getToken(0, 0).getState()==TokenState.EMPTY);
-		g.insertPiece(0, 0);
-		assert(g.getBoard().getToken(0, 0).getState()!=TokenState.EMPTY);
+		gameTester = new GameController(true);
+		assertTrue(gameTester.getBoard().getToken(0, 0).getState()==TokenState.EMPTY);
+		gameTester.insertPiece(0, 0);
+		assertTrue(gameTester.getBoard().getToken(0, 0).getState()!=TokenState.EMPTY);
 	}
 
 	@Test
 	public final void testEndFreePlace() {
-		fail("Not yet implemented"); // TODO
+		gameTester = new GameController(true);
+		gameTester.endFreePlace();
+		assertFalse(gameTester.isFreePlacing());
+		gameTester = new GameController(true);
+		gameTester.insertPiece(0,5);
+		gameTester.endFreePlace();
+		assertTrue(gameTester.isFreePlacing());
 	}
 
 	@Test
 	public final void testSwitchColour() {
-		fail("Not yet implemented"); // TODO
+		gameTester = new GameController(true);
+		gameTester.insertPiece(0,0);
+		gameTester.switchColour();
+		gameTester.insertPiece(0,1);
+		Board gmBrd= gameTester.getBoard();
+		assertNotSame(gmBrd.getToken(0,0),gmBrd.getToken(0,1));
+
 	}
 
 	@Test
@@ -55,11 +66,6 @@ public class GameControllerTest {
 
 	@Test
 	public final void testInsertPiece() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testIsFreePlacing() {
 		fail("Not yet implemented"); // TODO
 	}
 
