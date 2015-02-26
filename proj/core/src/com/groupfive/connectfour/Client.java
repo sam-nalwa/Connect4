@@ -41,9 +41,16 @@ public class Client{
 		System.out.println("Place: (3,0)");
 		
 		//testing error throwing
-		game = new GameController(true);
-		game.insertPiece(0, 0);
+		game.reset();
 		game.insertPiece(0, 1);
+		game.switchColour();
+		game.insertPiece(0, 5);
+		game.insertPiece(0, 0);
+		game.insertPiece(2, 5);
+		game.insertPiece(6, 0);
+		game.insertPiece(5, 1);
+		game.insertPiece(4, 2);
+		game.insertPiece(3, 3);
 		
 		printBoard(game.getBoard());
 		List<ErrorCode> errors =  game.endFreePlace();
