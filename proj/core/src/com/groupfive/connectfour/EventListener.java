@@ -1,5 +1,7 @@
 package com.groupfive.connectfour;
 
+import java.util.List;
+
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -13,6 +15,8 @@ public class EventListener implements InputProcessor{
 	public int gameHeight;
 	public int boardOffsetX;
 	public int boardOffsetY;
+	
+	public List<ErrorCode> errorList;
 	
 	private int tokenSize = 75;
 	
@@ -58,7 +62,7 @@ public class EventListener implements InputProcessor{
 		} else if(x>okayButton.getX() && x<okayButton.getX() + okayButton.getWidth() && y>okayButton.getY() && y<okayButton.getY() + okayButton.getHeight()) {
 			System.out.println("Clicked the okay button");
 			if(gc.isFreePlacing()){
-				gc.endFreePlace();
+				errorList = gc.endFreePlace();
 			}
 		} else {
 			System.out.println("Out of range.");

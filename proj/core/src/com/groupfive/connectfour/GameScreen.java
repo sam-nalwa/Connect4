@@ -121,6 +121,13 @@ public class GameScreen implements Screen {
 		
 		//Finally, draw the board on top of everything else
 		batch.draw(board, boardOffsetX, boardOffsetY);
+		
+		
+		//When I said finally last time I lied, this is actually what we do finally.
+		if(eventListener.errorList != null){
+			System.out.println("yo");
+		}
+		
 		batch.end();
 	}
 
