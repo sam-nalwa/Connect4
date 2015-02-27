@@ -1,8 +1,8 @@
 package com.groupfive.connectfour;
-import java.util.ArrayList;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
+
 //This class is used for controlling the rest of the game logic
 public class GameController{
 	private TokenState colourPlacing;//The colour to be placed at any given time
@@ -22,9 +22,7 @@ public class GameController{
 		return gameBoard;
 	}
 
-	//ends free place mode, returns errors
-	//SHITTY IMPLEMENTATION is the following:
-	//returns errors in an ErrorCode[]
+	//ends free place mode, returns errors in an HashSet<ErrorCode>
 	//or if there are no errors, returns null
 	public HashSet<ErrorCode> endFreePlace(){
 		if (this.freePlaceMode){

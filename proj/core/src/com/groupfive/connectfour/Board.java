@@ -1,8 +1,6 @@
 package com.groupfive.connectfour;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 //This class represents the game board/grid and all its legal operations
 public class Board{
