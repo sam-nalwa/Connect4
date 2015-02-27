@@ -31,8 +31,8 @@ public class MMenu implements Screen{
 	 
 	
 	
-	public MMenu(ConnectFour gamee){
-		game=gamee;
+	public MMenu(ConnectFour c4game){
+		game=c4game;
 		camera=new OrthographicCamera();
 		camera.setToOrtho(false,600,800);
 	}
