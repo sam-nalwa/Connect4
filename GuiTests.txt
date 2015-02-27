@@ -1,0 +1,71 @@
+GUI Testing:
+Perform the following actions sequentially, unless stated otherwise.
+
+Action: run the Connect4.jar executable
+Expected: A screen appears with 3 buttons, “play”, “create board”, and “exit”.
+
+Action: Click the exit button.
+Expected: The window closes.
+
+Action: Open the executable again and click the play button.
+Expected: A screen appears with an empty connect 4 board, and a reset button. Note that this screen contains functionality not required at this stage. As such it will be tested at a later date.
+
+We will refer to specific slots on the board using the following agreed upon coordinate system: The coordinate (x,y) represents the slot that is x horizontal positions from the bottom left slot and y vertical positions away from the bottom left slot. For example (0,0) is the bottom left slot itself.
+
+Action: Close the window and open it again, then click the create board button.
+Expected: A screen appears with an empty board, a red button, blue button, an ok button, and a reset button.
+
+Action: Click slot (0,0)
+Expected: Either a red or blue piece (randomly chosen) appears in slot (0,0). We will refer this randomly selected colour as ‘the first colour’ and the other colour as ‘the second colour’.
+
+Action: Click the button of the second colour and then click slots (1,0), (2,0) and (3,0). Then click the ok button.
+Expected: Slots (1,0), (2,0) and (3,0) will be filled with pieces of the second colour. An error message appears indicating a “ration error”(An illegal in-balance in the ratio of blue pieces and red pieces)
+
+Action: Click the error message and then click the reset button 
+Expected: The error message disappears and then the board is once again empty.
+
+Action: Click slots (0,0), (1,0), (2,0) and (3,0). Then click the ok button.
+Expected: Slots (0,0), (1,0), (2,0) and (3,0) are all filled with pieces of the second colour. An error message appears again indicating a ratio error.
+
+Action: Click the error message.
+Expected: Another error message appears indicating an ‘illegal win’(A board in a state where a player has already won)
+
+Action: Click the error message and then click the reset button 
+Expected: The error message disappears and then the board is once again empty.
+
+Action: Click slots (0,0), (0,1), (0,2), and (0,3). Then click the ok button.
+Expected: Slots (0,0), (0,1), (0,2), and (0,3) are all filled with pieces of the second colour. An error message appears again indicating a ratio error.
+
+Action: Click the error message.
+Expected: Another error message appears indicating an ‘illegal win’
+
+Action: Click the error message and then click the reset button 
+Expected: The error message disappears and then the board is once again empty.
+
+Action: Click slots (0,0), (1,1), (2,2), and (3,3). Then click the ok button.
+Expected: Slots (0,0), (1,1), (2,2), and (3,3) are all filled with pieces of the second colour. An error message appears again indicating an unsupported disk.
+
+Action: Click the error message.
+Expected: Another error message appears indicating a ‘ratio error’
+
+Action: Click the error message.
+Expected: Another error message appears indicating an ‘illegal win’
+
+Action: Click the error message and then click the reset button 
+Expected: The error message disappears and then the board is once again empty.
+
+Action: Click slot (3,1) and then click the ok button.
+Expected: An error message appears indicating a ‘unsupported disk’(There is a piece that is not directly supported by another piece from below.
+
+Action: Click the error message.
+Expected: Another error message appears indicating a ratio error
+
+Action: Click the error message and then click the reset button 
+Expected: The error message disappears and then the board is once again empty.
+
+Action: Click slots (0,0), and (6,0). Then click the button of the first colour. Now click slots (0,1) and (6,1).
+Expected: Slots (0,0), and (6,0) are filled with pieces of the second colour, whilst slots (0,1) and (6,1) are filled with pieces of the first colour.
+
+Action: Click the ok button.
+Expected: All buttons other than the reset button disappear. You are now once again in the normal connect 4 mode.
+
