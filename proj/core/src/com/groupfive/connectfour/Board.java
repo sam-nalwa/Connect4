@@ -57,7 +57,6 @@ public class Board{
 		}
 	}
 	//Method to check if the state of the board is legal (after freeplacemode)
-	//CHECK WITH GUI TEAM how they want us to return what kind of invalid placement there is???
 	HashSet<ErrorCode> findErrors(TokenState firstMove){
 		int redCount = 0;
 		int blueCount = 0;
@@ -65,7 +64,7 @@ public class Board{
 		for (int i = 0; i < slots.length; i++){
 			for (int j = 0; j < slots[i].length; j++){
 				if (slots[i][j].getState() != TokenState.EMPTY){
-					//Checking if piece is supported
+					//Checks if piece is supported
 					if ((j-1 > -1) && (slots[i][j-1].getState() == TokenState.EMPTY)){
 						errors.add(ErrorCode.DEFIESGRAVITY);
 					}
@@ -78,12 +77,7 @@ public class Board{
 				}
 			}
 		}
-		//
-		//
-		//     (ﾉ'ヮ')ﾉ*:･ﾟ✧ VICKY'S SECTION (ﾉ'ヮ')ﾉ*:･ﾟ✧
-		//
-		//
-		//figure out conditions for invalid ratio of pieces
+		//Checks that the ratio of red to blue pieces is valid
 		if (firstMove == TokenState.RED && ((blueCount > redCount) || (redCount-1 > blueCount))){
 			errors.add(ErrorCode.BADRATIO);
 		} else if (firstMove == TokenState.BLUE && ((redCount > blueCount) || (blueCount-1 > redCount))){
@@ -93,10 +87,11 @@ public class Board{
 		if (checkWin() != null){
 			errors.add(ErrorCode.NOWINNINGALLOWED);
 		}
-		//return list of errors
+		//Return errors
 		return errors;
 	}
 	
+	//Method to check if there is a winning configuration
 	TokenState checkWin(){
 		int numCols = slots.length;
 		int numRows = slots[0].length;
