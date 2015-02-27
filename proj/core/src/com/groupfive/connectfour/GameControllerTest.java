@@ -2,8 +2,8 @@ package com.groupfive.connectfour;
 
 
 import static org.junit.Assert.*;
-
 import org.junit.*;
+import java.util.Random;
 
 public class GameControllerTest {
 	GameController gameTester;
@@ -51,22 +51,24 @@ public class GameControllerTest {
 		gameTester.insertPiece(0,1);
 		Board gmBrd= gameTester.getBoard();
 		assertNotSame(gmBrd.getToken(0,0),gmBrd.getToken(0,1));
-
-	}
-
-	/*@Test
-	public final void testSwitchColourTokenState() {
-		fail("Not yet implemented"); // TODO
+		gameTester.switchColour(gmBrd.getToken(0,0).getState());
+		gameTester.insertPiece(0,2);
+		assertEquals(gmBrd.getToken(0,0),gmBrd.getToken(0,2));
 	}
 
 	@Test
 	public final void testReset() {
-		fail("Not yet implemented"); // TODO
+		gameTester = new GameController(true);
+		Random generator = new Random();
+		for (int i = 0; i <=15; i++){
+			gameTester.insertPiece(generator.nextInt(6 - 0),generator.nextInt(2 - 0));
+		}
+		gameTester.reset();
+		Board gmBrd = gameTester.getBoard();
+		for (int i = 0; i < gmBrd.colLength; i++){
+			for (int j = 0; j < gmBrd.rowLength; j++){
+				assertEquals(gmBrd.getToken(i,j).getState(),TokenState.EMPTY);
+			}
+		}
 	}
-
-	@Test
-	public final void testInsertPiece() {
-		fail("Not yet implemented"); // TODO
-	}
-*/
 }
