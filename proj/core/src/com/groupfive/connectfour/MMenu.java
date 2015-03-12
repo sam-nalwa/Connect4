@@ -27,7 +27,7 @@ public class MMenu implements Screen{
 	 private TextureAtlas atlas;
 	 private Skin skin;
 	 private Table table;
-	 private TextButton buttonExit, buttonPlay, buttonCreate;
+	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad;
 	 
 	
 	
@@ -73,18 +73,27 @@ public class MMenu implements Screen{
 		 
 		 //Create and implent the PLAY button
 		 buttonPlay = new TextButton("Play", skin);
-		 buttonPlay.pad(20);
+		 buttonPlay.pad(7);
 		 buttonPlay.addListener(new ClickListener(){
-			 
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
 		 game.setScreen(new GameScreen(game,false));
 		 }
 		 });
+
+		//Create and implement the Load Board Button
+		 buttonLoad = new TextButton("Load Board", skin);
+		 buttonLoad.pad(7);
+		 buttonLoad.addListener(new ClickListener(){
+		 @Override
+		 public void clicked(InputEvent event, float x, float y) {
+			 game.setScreen(new GameScreen(game,true));
+		 }
+		 });
 		 
 		//Create and implement the Create Board Button
 		 buttonCreate = new TextButton("Create Board", skin);
-		 buttonCreate.pad(20);
+		 buttonCreate.pad(7);
 		 buttonCreate.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
@@ -94,7 +103,7 @@ public class MMenu implements Screen{
 		 
 		//Create and implement the EXIT button
 		 buttonExit = new TextButton("Exit", skin);
-		 buttonExit.pad(20);
+		 buttonExit.pad(7);
 		 buttonExit.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
@@ -104,13 +113,16 @@ public class MMenu implements Screen{
 		 
 
 		 table.add(buttonPlay);
-		 table.getCell(buttonPlay).spaceBottom(20);
+		 table.getCell(buttonPlay).spaceBottom(2);
+		 table.row();
+		 table.add(buttonLoad);
+		 table.getCell(buttonLoad).spaceBottom(2);
 		 table.row();
 		 table.add(buttonCreate);
-		 table.getCell(buttonCreate).spaceBottom(20);
+		 table.getCell(buttonCreate).spaceBottom(2);
 		 table.row();
 		 table.add(buttonExit);
-		 table.getCell(buttonExit).spaceBottom(20);
+		 table.getCell(buttonExit).spaceBottom(2);
 		 table.bottom();
 		 stage.addActor(table);
 		 
