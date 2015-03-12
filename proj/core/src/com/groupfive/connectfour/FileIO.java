@@ -1,6 +1,7 @@
 package com.groupfive.connectfour;
 
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,14 +9,15 @@ import java.io.Writer;
 
 public class FileIO{
   
-  //get the current boardstate
-  private Board currBoard = gameController.getBoard();
-  
+
   //should actually be void not sure what is actually passed
   //Saves the current gamestate into a textfile
   public static void save(String fileName)throws IOException {
+  	 
+  	 //get the current boardstate
+	Board currBoard = gameController.getBoard();
   
-    Writer wr = null;
+    	Writer wr = null;
 	try {
 		File f = new File(fileName);
 		wr = new BufferedWriter(new FileWriter(f));
@@ -44,7 +46,27 @@ public class FileIO{
       	}	
   }
   
+  //Loads the current gameState from a textFile
   public static void load(String fileName){
+  	BufferedReader input = new BufferedReader(new FileReader(fileName));
+  	
+  	
+  	int value = 0;
+  	//buffRead.read reads as ascii value and returns -1 if end of stream has been reached
+	 while((value = input.read()) != -1){
+	 	
+         	// converts int to character
+        	char c = (char)value;
+        	if( c = 'R'){
+        		//the token is red
+        	}
+        	else if( c = 'B'){
+        		//the token is blue
+        	}
+        	else{
+        		//the place is empty
+        	}
+         }
   	
   }
   
