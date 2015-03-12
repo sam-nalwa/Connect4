@@ -12,28 +12,40 @@ public class FileIO{
   private Board currBoard = gameController.getBoard();
   
   //should actually be void not sure what is actually passed
+  //Saves the current gamestate into a textfile
   public static void save(String fileName)throws IOException {
   
     Writer wr = null;
-		  try {
-		  	File f = new File(fileName);
-			  wr = new BufferedWriter(new FileWriter(f));
+	try {
+		File f = new File(fileName);
+		wr = new BufferedWriter(new FileWriter(f));
   
-        for (int i = 0; i < 8; i++){
-          for (int j = 0; j < 7; j++){
-            Token temp = currBoard.getToken(i,j);
+        	for (int i = 0; i < 8; i++){
+          		for (int j = 0; j < 7; j++){
+            			Token temp = currBoard.getToken(i,j);
             
-            if (temp.getState() = TokenState.RED){
-              wr.write("R");
-            }
-            else if(temp.getState() = TokenState.BLUE){
-              wr.write("B");
-            }
-            else{
-              wr.write("-");
-            }
-          }
-        }
-      }
-    }
+				if (temp.getState() = TokenState.RED){
+					wr.write("R");
+				}
+				else if(temp.getState() = TokenState.BLUE){
+					wr.write("B");
+				}
+				else{
+					wr.write("-");
+            			}
+          		}
+        	}
+      	}
+      	finally {
+		if (wr != null){
+			wr.close();
+		}
+    
+      	}	
+  }
+  
+  public static void load(String fileName){
+  	
+  }
+  
 }
