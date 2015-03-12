@@ -47,7 +47,7 @@ public class FileIO{
   }
   
   //Loads the current gameState from a textFile
-  public static void load(String fileName) throws IOException{
+  public static void load(String fileName, GameController currGame) throws IOException{
   	BufferedReader input = new BufferedReader(new FileReader(fileName));
   	
   	
@@ -58,12 +58,12 @@ public class FileIO{
          	// converts int to character
         	char c = (char)value;
         	if( c == 'R'){
-        		//the token is red
+        		//currGame.insertPiece(col, row,TokenState.RED)
         	}
         	else if( c == 'B'){
         		//the token is blue
         	}
-        	else{
+        	else if (c == '-'){
         		//the place is empty
         	}
          }
