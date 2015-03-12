@@ -16,6 +16,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 
+
+
+import java.io.File;
+import java.io.FileFilter;
+
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pools;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+
 public class MMenu implements Screen{
 	
 	final ConnectFour game;
@@ -111,7 +126,11 @@ public class MMenu implements Screen{
 		 }
 		 });
 		 
-
+		 Date date = new Date();
+		 SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy'-'hh:mm");
+	     System.out.println(ft.format(date));
+	     
+	     
 		 table.add(buttonPlay);
 		 table.getCell(buttonPlay).spaceBottom(2);
 		 table.row();
