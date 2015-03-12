@@ -127,4 +127,84 @@ public class Board{
 		}
 		return null;
 	}
+	boolean checkDraw(){
+		int numCols = slots.length;
+		int numRows = slots[0].length;
+		boolean possible = false;
+		for (int i = 0; i < numCols; i++){
+			for (int j = 0; j < numRows; j++){
+				if (j > 2){
+					int redCount = 0;
+					int blueCount = 0;
+					for (int k = 0; k < 4; k++){
+						if (slots[i][j-k].getState() == TokenState.RED){
+							redCount++;
+						}else if (slots[i][j-k].getState() == TokenState.BLUE){
+							blueCount++;
+						}
+					}
+					if (!(redCount > 0 && blueCount > 0)){
+						possible = true;
+						// Token[][] emptyBelow = new Token[colLength][rowLength];
+						// for (int i = 0; i < numCols; i++){
+						// 	for (int j = 0; j < numRows; j++){
+						// 		emptyBelow[i][j] = slots[i][j]
+						// 	}
+						// }
+						// 		for (int k = 0; k < 4; k++){
+						// 			if (slots[i][j-k].getState() == TokenState.EMPTY){
+
+						// 			}
+						// 		}
+						// 	}
+					}
+				}
+				if (i > 2){
+					int redCount = 0;
+					int blueCount = 0;
+					for (int k = 0; k < 4; k++){
+						if (slots[i-k][j].getState() == TokenState.RED){
+							redCount++;
+						}else if (slots[i-k][j].getState() == TokenState.BLUE){
+							blueCount++;
+						}
+					}
+					if (!(redCount > 0 && blueCount > 0)){
+						possible = true;
+					}
+				}
+				if (i < 4 && j > 2){
+					int redCount = 0;
+					int blueCount = 0;
+					for (int k = 0; k < 4; k++){
+						if (slots[i+k][j-k].getState() == TokenState.RED){
+							redCount++;
+						}else if (slots[i+k][j-k].getState() == TokenState.BLUE){
+							blueCount++;
+						}
+					}
+					if (!(redCount > 0 && blueCount > 0)){
+						possible = true;
+					}
+				}
+				if (i > 2 && j > 2){
+					int redCount = 0;
+					int blueCount = 0;
+					for (int k = 0; k < 4; k++){
+						if (slots[i-k][j-k].getState() == TokenState.RED){
+							redCount++;
+						}else if (slots[i-k][j-k].getState() == TokenState.BLUE){
+							blueCount++;
+						}
+					}
+					if (!(redCount > 0 && blueCount > 0)){
+						possible = true;
+					}
+				}
+
+			}
+		}
+		return possible;
+	}
 }
+
