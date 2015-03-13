@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class FileIO{
 	
-	
+private ArrayList<String[]> data = new ArrayList<String[]>();
   
   //Saves the current gamestate into a textfile
   public static void save(Board currBoard, String pTurn)throws IOException {
