@@ -33,16 +33,7 @@ public class FileIO{
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		finally{
-			if (br != null){
-				try{
-					br.close();
-				}
-				catch (IOException e){
-					e.printStackTrace();
-				}
-			}
-		}
+		br.close();
 	
 	  	//saves the current date/time
 		Date myDate = new Date();
@@ -92,16 +83,7 @@ public class FileIO{
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		finally{
-			if (wr != null){
-				try{
-					wr.close();
-				}
-				catch (IOException e){
-					e.printStackTrace();
-				}
-			}
-		}
+		wr.close();
   }
 
  //Loads the gameState specified at index loadGame
@@ -128,16 +110,7 @@ public class FileIO{
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		finally{
-			if (br != null){
-				try{
-					br.close();
-				}
-				catch (IOException e){
-					e.printStackTrace();
-				}
-			}
-		}
+		br.close();
   	
 	  //
 	  for(int i = 0; i<tokenStates.length(); i++){
