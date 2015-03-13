@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class FileIO{
-	
-private ArrayList<String[]> data = new ArrayList<String[]>();
+
   
   //Saves the current gamestate into a textfile
   public static void save(Board currBoard, String pTurn)throws IOException {
 
+		
+	 ArrayList<String[]> data = new ArrayList<String[]>();
 	  //Read contents of file into arraylist data
 	  BufferedReader br = null;
 	  try{
@@ -103,28 +104,58 @@ private ArrayList<String[]> data = new ArrayList<String[]>();
 		}
   }
 
- //Loads the current gameState from a textFile
-  public static void load(String fileName, GameController currGame) throws IOException{
-  	BufferedReader input = new BufferedReader(new FileReader(fileName));
+ //Loads the gameState specified at index loadGame
+  public static void load(Integer loadGame) throws IOException{
+	  
+		
+	 String tokenStates = "";
+	 String playerTurn = "";
+	 int lineCount = 0;
+	 
+	  //Read contents of file to get token Locations and player turn
+	  BufferedReader br = null;
+	  try{
+			br = new BufferedReader(new FileReader("save.txt"));
+			while((line = br.readLine())  != null ){
+				if(lineCount = loadGame){
+					String[] temp = line.split("@");
+					tokenStates = temp[1];
+					playerTurn = temp[2];
+				}
+			}
+		}catch(FileNotFoundException e){
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		finally{
+			if (br != null){
+				try{
+					br.close();
+				}
+				catch (IOException e){
+					e.printStackTrace();
+				}
+			}
+		}
   	
+	  //
+	  for(int i = 0; i<tokenStates.length(); i++){
+		  char currToken = tokenStates.charAt(i);
+		  if (currToken == 'R'){
+			  //make a red token object
+		  }
+		  else if(currToken == 'B'){
+			  //make a blue token object
+		  }
+		  else{
+			  //make a EMPTY token object
+		  }
+		  //do something with these token objects
+	  }
   	
-  	int value = 0;
-  	//buffRead.read reads as ascii value and returns -1 if end of stream has been reached
-	 while((value = input.read()) != -1){
-	 	
-         	// converts int to character
-        	char c = (char)value;
-        	if( c == 'R'){
-        		//currGame.insertPiece(col, row,TokenState.RED)
-        	}
-        	else if( c == 'B'){
-        		//the token is blue
-        	}
-        	else if (c == '-'){
-        		//the place is empty
-        	}
-         }
-  	input.close();
+	  //return something important
+  	
   }
   
 }
