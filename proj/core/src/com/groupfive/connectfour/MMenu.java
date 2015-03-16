@@ -47,16 +47,9 @@ public class MMenu implements Screen{
 	 private Stage stage;
 	 private TextureAtlas atlas;
 	 private Skin skin;
-<<<<<<< HEAD
 	 private Table table, loadTable;
 	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad;
 	 private List loadList;
-	 
-	  
-=======
-	 private Table table;
-	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad;
->>>>>>> FETCH_HEAD
 	 
 	
 	
@@ -127,7 +120,7 @@ public class MMenu implements Screen{
 		 buttonLoad.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y){
-			 displayLoader(50);
+			 displayLoader(8);
 		 }
 		 });
 		 
@@ -150,8 +143,7 @@ public class MMenu implements Screen{
 		 Gdx.app.exit();
 		 }
 		 });
-		 
-<<<<<<< HEAD
+
 
 		 table.add(buttonPlay).height(80);
 		 table.getCell(buttonPlay).spaceBottom(10);
@@ -164,7 +156,7 @@ public class MMenu implements Screen{
 		 table.row();
 		 table.add(buttonExit).height(80);
 		 table.getCell(buttonExit).spaceBottom(10);
-=======
+
 		 Date date = new Date();
 		 SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy'-'hh:mm");
 	     System.out.println(ft.format(date));
@@ -181,7 +173,7 @@ public class MMenu implements Screen{
 		 table.row();
 		 table.add(buttonExit);
 		 table.getCell(buttonExit).spaceBottom(2);
->>>>>>> FETCH_HEAD
+
 		 table.bottom();
 		 stage.addActor(table);
 		 
