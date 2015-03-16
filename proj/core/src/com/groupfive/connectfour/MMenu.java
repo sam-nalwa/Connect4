@@ -22,6 +22,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 
 
+
+
+import java.io.File;
+import java.io.FileFilter;
+
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pools;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+
 public class MMenu implements Screen{
 	
 	final ConnectFour game;
@@ -32,11 +47,16 @@ public class MMenu implements Screen{
 	 private Stage stage;
 	 private TextureAtlas atlas;
 	 private Skin skin;
+<<<<<<< HEAD
 	 private Table table, loadTable;
 	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad;
 	 private List loadList;
 	 
 	  
+=======
+	 private Table table;
+	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad;
+>>>>>>> FETCH_HEAD
 	 
 	
 	
@@ -82,12 +102,21 @@ public class MMenu implements Screen{
 		 
 		 //Create and implement the PLAY button
 		 buttonPlay = new TextButton("Play", skin);
-		 buttonPlay.pad(20);
+		 buttonPlay.pad(7);
 		 buttonPlay.addListener(new ClickListener(){
-			 
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
 		 game.setScreen(new GameScreen(game,false));
+		 }
+		 });
+
+		//Create and implement the Load Board Button
+		 buttonLoad = new TextButton("Load Board", skin);
+		 buttonLoad.pad(7);
+		 buttonLoad.addListener(new ClickListener(){
+		 @Override
+		 public void clicked(InputEvent event, float x, float y) {
+			 game.setScreen(new GameScreen(game,true));
 		 }
 		 });
 		 
@@ -104,7 +133,7 @@ public class MMenu implements Screen{
 		 
 		//Create and implement the Create Board Button
 		 buttonCreate = new TextButton("Create Board", skin);
-		 buttonCreate.pad(20);
+		 buttonCreate.pad(7);
 		 buttonCreate.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
@@ -114,7 +143,7 @@ public class MMenu implements Screen{
 		 
 		//Create and implement the EXIT button
 		 buttonExit = new TextButton("Exit", skin);
-		 buttonExit.pad(20);
+		 buttonExit.pad(7);
 		 buttonExit.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
@@ -122,6 +151,7 @@ public class MMenu implements Screen{
 		 }
 		 });
 		 
+<<<<<<< HEAD
 
 		 table.add(buttonPlay).height(80);
 		 table.getCell(buttonPlay).spaceBottom(10);
@@ -134,6 +164,24 @@ public class MMenu implements Screen{
 		 table.row();
 		 table.add(buttonExit).height(80);
 		 table.getCell(buttonExit).spaceBottom(10);
+=======
+		 Date date = new Date();
+		 SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy'-'hh:mm");
+	     System.out.println(ft.format(date));
+	     
+	     
+		 table.add(buttonPlay);
+		 table.getCell(buttonPlay).spaceBottom(2);
+		 table.row();
+		 table.add(buttonLoad);
+		 table.getCell(buttonLoad).spaceBottom(2);
+		 table.row();
+		 table.add(buttonCreate);
+		 table.getCell(buttonCreate).spaceBottom(2);
+		 table.row();
+		 table.add(buttonExit);
+		 table.getCell(buttonExit).spaceBottom(2);
+>>>>>>> FETCH_HEAD
 		 table.bottom();
 		 stage.addActor(table);
 		 

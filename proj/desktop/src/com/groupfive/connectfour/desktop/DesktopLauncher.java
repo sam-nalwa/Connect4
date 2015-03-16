@@ -10,6 +10,8 @@ public class DesktopLauncher {
 		config.title = "Connect 4";
 		config.width = 800;
 		config.height = 600;
+		config.resizable=false;
 		new LwjglApplication(new ConnectFour(), config);
+		
 	}
 }
