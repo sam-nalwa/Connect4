@@ -26,8 +26,8 @@ public class MMenu implements Screen{
 	 private Stage stage;
 	 private TextureAtlas atlas;
 	 private Skin skin;
-	 private Table table;
-	 private TextButton buttonExit, buttonPlay, buttonCreate;
+	 private Table table, loadTable;
+	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad;
 	 
 	
 	
@@ -71,7 +71,7 @@ public class MMenu implements Screen{
 		 table = new Table(skin);
 		 table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		 
-		 //Create and implent the PLAY button
+		 //Create and implement the PLAY button
 		 buttonPlay = new TextButton("Play", skin);
 		 buttonPlay.pad(20);
 		 buttonPlay.addListener(new ClickListener(){
@@ -81,6 +81,18 @@ public class MMenu implements Screen{
 		 game.setScreen(new GameScreen(game,false));
 		 }
 		 });
+		 
+		 //Create and implement the load game button
+		 
+		 buttonLoad = new TextButton("Load Game", skin);
+		 buttonLoad.pad(20);
+		 buttonLoad.addListener(new ClickListener(){
+		 @Override
+		 public void clicked(InputEvent event, float x, float y){
+		 displayLoader(8);
+		 }
+		});
+		 		 
 		 
 		//Create and implement the Create Board Button
 		 buttonCreate = new TextButton("Create Board", skin);
@@ -103,17 +115,74 @@ public class MMenu implements Screen{
 		 });
 		 
 
-		 table.add(buttonPlay);
-		 table.getCell(buttonPlay).spaceBottom(20);
+		 table.add(buttonPlay).height(80);
+		 table.getCell(buttonPlay).spaceBottom(10);
 		 table.row();
-		 table.add(buttonCreate);
-		 table.getCell(buttonCreate).spaceBottom(20);
+		 table.add(buttonCreate).height(80);;
+		 table.getCell(buttonCreate).spaceBottom(10);
 		 table.row();
-		 table.add(buttonExit);
-		 table.getCell(buttonExit).spaceBottom(20);
+		 table.add(buttonLoad).height(80);
+		 table.getCell(buttonLoad).spaceBottom(10);
+		 table.row();
+		 table.add(buttonExit).height(80);
+		 table.getCell(buttonExit).spaceBottom(10);
 		 table.bottom();
 		 stage.addActor(table);
+
 		 
+	}
+	//Called when buttonLoad is pressed
+	
+	public void displayLoader(int count) {
+		//Hide our table of buttons
+		table.setVisible(false);
+		
+		//Start drawing a new table of buttons
+		
+		 loadTable = new Table(skin);
+		 loadTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		 int r = 0;
+		 //Create a new button for every save slot
+		for (int i=0; i < count; i++) {
+			//Increment r
+			 r++;
+			 TextButton buttonSelectLoad = new TextButton(String.format("Save #%d", i), skin);
+			 buttonSelectLoad.pad(20);
+			 //We must redefine i in order for it to be used in the following method
+			 
+			 final int j = i;
+			 
+			 //Create a method which is called when the button is clicked
+			 buttonSelectLoad.addListener(new ClickListener(){
+			 @Override
+			 public void clicked(InputEvent event, float x, float y) {
+				 loadGame(j);
+			 }
+			 });
+			 
+			 //Add our created button to the table
+			 
+			 loadTable.add(buttonSelectLoad).height(80);
+			 loadTable.getCell(buttonSelectLoad).spaceBottom(10);
+			 
+			 //On every second value of r, start a new row.
+			 
+			 if (r == 2) { 
+				 loadTable.row();
+				 r = 0;
+			 }
+
+		}
+		loadTable.bottom();
+		stage.addActor(loadTable);
+		
+		
+	}
+	
+	//Loads the game at the selected index
+	
+	public void loadGame(int index) {
+		System.out.println(index);
 	}
 
 	@Override
