@@ -100,6 +100,10 @@ public class GameController{
 		}
 	}
 	
+	public TokenState getTurn(){
+		return this.colourPlacing;
+	}
+	
 	public boolean isFreePlacing(){
 		return this.freePlaceMode;
 	}

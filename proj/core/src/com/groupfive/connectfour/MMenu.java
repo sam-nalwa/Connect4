@@ -1,5 +1,7 @@
 package com.groupfive.connectfour;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -182,7 +184,12 @@ public class MMenu implements Screen{
 	//Loads the game at the selected index
 	
 	public void loadGame(int index) {
-		System.out.println(index);
+		try {
+			FileIO.load(index);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

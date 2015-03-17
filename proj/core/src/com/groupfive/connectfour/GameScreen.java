@@ -63,6 +63,8 @@ public class GameScreen implements Screen {
 			buttons.get("okayButton").setPosition(this.gameWidth/2 - 75,10);
 		buttons.put("resetButton",new Sprite(new Texture("reset.png")));
 			buttons.get("resetButton").setPosition(this.gameWidth-100, 100);
+		buttons.put("saveButton", new Sprite(new Texture("save.png")));
+			buttons.get("saveButton").setPosition(this.gameWidth-100, this.gameHeight-50);
 		
 		//Set up the camera
 		camera = new OrthographicCamera();
@@ -110,6 +112,7 @@ public class GameScreen implements Screen {
 			buttons.get("blueSwitch").draw(batch);
 		}
 		buttons.get("resetButton").draw(batch);
+		buttons.get("saveButton").draw(batch);
 		
 		//Draw all of the placed tokens
 		for (int c = 0; c < boardState.colLength; c++){

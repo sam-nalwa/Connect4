@@ -1,5 +1,6 @@
 package com.groupfive.connectfour;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -92,6 +93,16 @@ public class EventListener implements InputProcessor{
 				buttons.remove("gravityError");
 				buttons.remove("ratioError");
 				buttons.remove("winError");
+			} else if(buttonName=="saveButton"){
+				try {
+					this.errorList = gc.endFreePlace();
+					if(this.errorList.isEmpty()){
+						FileIO.save(gc.getBoard(),gc.getTurn().toString());
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
 				System.out.println("Button not recognized: "+buttonName);
 			}
@@ -101,7 +112,7 @@ public class EventListener implements InputProcessor{
 			x-=boardOffsetX;
 			y-=boardOffsetY;
 			gc.insertPiece(x/tokenSize, y/tokenSize);
-		} else {
+		} else{
 			System.out.println("You can't do that.");
 		}
 		
