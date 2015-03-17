@@ -146,18 +146,6 @@ public class Board{
 					}
 					if (!(redCount > 0 && blueCount > 0)){
 						possible = true;
-						// Token[][] emptyBelow = new Token[colLength][rowLength];
-						// for (int i = 0; i < numCols; i++){
-						// 	for (int j = 0; j < numRows; j++){
-						// 		emptyBelow[i][j] = slots[i][j]
-						// 	}
-						// }
-						// 		for (int k = 0; k < 4; k++){
-						// 			if (slots[i][j-k].getState() == TokenState.EMPTY){
-
-						// 			}
-						// 		}
-						// 	}
 					}
 				}
 				if (i > 2){
@@ -205,7 +193,7 @@ public class Board{
 
 			}
 		}
-		return possible;
+		return !possible;
 	}
 }
 	

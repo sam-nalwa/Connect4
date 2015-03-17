@@ -61,7 +61,7 @@ public class Client{
 			}
 		}
 	}
-	private static void printBoard(Board brd){
+	static void printBoard(Board brd){
 		String[] rows = new String[6];
 		for (int i = 0; i < rows.length;i++){
 			rows[i] = "";

@@ -93,22 +93,22 @@ public class GameControllerTest {
 	public final void testInsertPiece(){
 		gameTester = new GameController(true);
 		gameTester.insertPiece(3, 3, TokenState.RED);
-		assertEquals(gameTester.getBoard().getToken(3, 3),TokenState.RED);
+		assertEquals(gameTester.getBoard().getToken(3, 3).getState(),TokenState.RED);
 		gameTester.insertPiece(0, 5, TokenState.BLUE);
-		assertEquals(gameTester.getBoard().getToken(0, 5),TokenState.BLUE);
+		assertEquals(gameTester.getBoard().getToken(0, 5).getState(),TokenState.BLUE);
 		gameTester.insertPiece(1, 4, TokenState.BLUE);
-		assertEquals(gameTester.getBoard().getToken(1, 4),TokenState.BLUE);
+		assertEquals(gameTester.getBoard().getToken(1, 4).getState(),TokenState.BLUE);
 		gameTester.insertPiece(4, 4, TokenState.RED);
-		assertEquals(gameTester.getBoard().getToken(4, 4),TokenState.RED);
+		assertEquals(gameTester.getBoard().getToken(4, 4).getState(),TokenState.RED);
 		gameTester = new GameController(false);
 		gameTester.insertPiece(3, 3, TokenState.EMPTY);
-		assertEquals(gameTester.getBoard().getToken(3, 3),TokenState.EMPTY);
+		assertEquals(gameTester.getBoard().getToken(3, 3).getState(),TokenState.EMPTY);
 		gameTester.insertPiece(0, 5, TokenState.EMPTY);
-		assertEquals(gameTester.getBoard().getToken(0, 5),TokenState.EMPTY);
+		assertEquals(gameTester.getBoard().getToken(0, 5).getState(),TokenState.EMPTY);
 		gameTester.insertPiece(1, 4, TokenState.EMPTY);
-		assertEquals(gameTester.getBoard().getToken(1, 4),TokenState.EMPTY);
+		assertEquals(gameTester.getBoard().getToken(1, 4).getState(),TokenState.EMPTY);
 		gameTester.insertPiece(4, 4, TokenState.EMPTY);
-		assertEquals(gameTester.getBoard().getToken(4, 4),TokenState.EMPTY);
+		assertEquals(gameTester.getBoard().getToken(4, 4).getState(),TokenState.EMPTY);
 
 	}
 	@Test
@@ -129,8 +129,6 @@ public class GameControllerTest {
 		gameTester.insertPiece(1,2);
 		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
 		gameTester.insertPiece(0,3);
-		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
-		gameTester.insertPiece(1,3);
 		if (firstPlayer == TokenState.RED){
 			assertEquals(gameTester.getCurrentState(),GameState.REDWIN);
 		}else{
@@ -141,8 +139,12 @@ public class GameControllerTest {
 		for (int i = 0; i < gmBrd.colLength; i++){
 			for (int j = 0; j < gmBrd.rowLength; j++){
 				gameTester.insertPiece(i,j);
+				gameTester.switchColour();
+				gameTester.insertPiece(i,j);
 			}
+			gameTester.switchColour();
 		}
+		Client.printBoard(gmBrd);
 		assertEquals(gameTester.getCurrentState(),GameState.DRAW);
 	}
 }
