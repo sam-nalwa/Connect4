@@ -21,6 +21,10 @@ public class GameController{
 	public Board getBoard(){
 		return gameBoard;
 	}
+	
+	public void setBoard(Board b){
+		this.gameBoard = b;
+	}
 
 	//ends free place mode, returns errors in an HashSet<ErrorCode>
 	//or if there are no errors, returns null
@@ -106,5 +110,9 @@ public class GameController{
 	
 	public boolean isFreePlacing(){
 		return this.freePlaceMode;
+	}
+	
+	public void setTurn(TokenState t){
+		this.colourPlacing = t;
 	}
 }

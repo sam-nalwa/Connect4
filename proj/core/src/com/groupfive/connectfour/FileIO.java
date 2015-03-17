@@ -25,6 +25,7 @@ public class FileIO{
 	  String s = text.readString();
 	  int counter = 0;
 	  for( int i=0; i<s.length(); i++ ) {
+	    	System.out.println(s.charAt(i));
 		    if( s.charAt(i) == '\n' ) {
 		        counter++;
 		    } 
@@ -106,52 +107,41 @@ public class FileIO{
  */
 
  //Loads the gameState specified at index loadGame
-  public static void load(Integer loadGame) throws IOException{
-	  
-		
-	 String tokenStates = "";
-	 String playerTurn = "";
+  public static GameController load(Integer loadGame) throws IOException{
+	 
+	 //Load the file
+	  FileHandle file = Gdx.files.internal("save.txt");
+	  String[] text = file.readString().split("@",0);
+	 String tokenPlaces = text[1];
+	 String playerTurn = text[2];
 	 int lineCount = 0;
 	 
-	  //Read contents of file to get token Locations and player turn
-	  BufferedReader br = null;
-	 /*
-	  try{
-			br = new BufferedReader(new FileReader("save.txt"));
-			while((line = br.readLine())  != null ){
-				
-				if(lineCount = loadGame){
-					String[] temp = line.split("@");
-					tokenStates = temp[1];
-					playerTurn = temp[2];
-				}
-				
-			}
-		}catch(FileNotFoundException e){
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		br.close();
-		*/
-		
+	 GameController gc = new GameController(true);
 	 
-	  for(int i = 0; i<tokenStates.length(); i++){
-		  char currToken = tokenStates.charAt(i);
-		  if (currToken == 'R'){
-			  //make a red token object
+	 Board freshBoard = new Board();
+	 
+	 //Make the board
+	  for (int i = 0; i < 7; i++){ //columns
+		  for (int j = 0; j < 6; j++){ //rows
+			  if(tokenPlaces.charAt(6*i + j) == 'R'){
+				  freshBoard.freePlace(i, j, TokenState.RED);
+			  } else if(tokenPlaces.charAt(6*i + j) == 'B'){
+				  freshBoard.freePlace(i, j, TokenState.BLUE);
+			  } else {
+				  freshBoard.freePlace(i, j, TokenState.EMPTY);
+			  }
 		  }
-		  else if(currToken == 'B'){
-			  //make a blue token object
-		  }
-		  else{
-			  //make a EMPTY token object
-		  }
-		  //do something with these token objects
+	  }
+	  
+	  gc.setBoard(freshBoard);
+	  if(playerTurn == "RED"){
+		  gc.setTurn(TokenState.RED);
+	  } else {
+		  gc.setTurn(TokenState.BLUE);
 	  }
   	
-	  //return something important
-  	
+	  gc.endFreePlace();
+	  return gc;
   }
   
 }

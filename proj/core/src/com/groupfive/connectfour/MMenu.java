@@ -186,6 +186,7 @@ public class MMenu implements Screen{
 	
 	public void loadGame(int index) {
 		try {
+			//Replace game
 			FileIO.load(index);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
