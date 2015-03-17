@@ -114,7 +114,7 @@ public class MMenu implements Screen{
 		 }
 		 });
 		 
-
+		 
 		 table.add(buttonPlay).height(80);
 		 table.getCell(buttonPlay).spaceBottom(10);
 		 table.row();
@@ -128,7 +128,7 @@ public class MMenu implements Screen{
 		 table.getCell(buttonExit).spaceBottom(10);
 		 table.bottom();
 		 stage.addActor(table);
-
+	
 		 
 	}
 	//Called when buttonLoad is pressed
