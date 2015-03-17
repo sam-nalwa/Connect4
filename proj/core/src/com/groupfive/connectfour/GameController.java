@@ -98,16 +98,16 @@ public class GameController{
 		TokenState winner = gameBoard.checkWin();
 
 		if (winner == TokenState.RED){
-			display="Red Has Won";
+			display="Red Has Won!!";
 			return GameState.REDWIN;
 		} else if (winner == TokenState.BLUE){
-			display="Blue has Won.";
+			display="Blue has Won!!";
 			return GameState.BLUEWIN;
 		}else if (gameBoard.checkDraw()){
-			display="This aint goin nowhere";
+			display="Its A Draw!!";
 			return GameState.DRAW;
 		}else{
-			display="game still in process homie";
+			display="Game In Progress!!";
 			return GameState.INPROGRESS;
 		}
 	}

@@ -101,13 +101,12 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		
 		stage = new Stage();
 		TextureAtlas atlas = new TextureAtlas("blueButtons.pack");
 		Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
 		Table table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		TextButton buttonIndicator = new TextButton(show, skin);
+		TextButton buttonIndicator = new TextButton(/*show*/gameController.display, skin);
 		buttonIndicator.setPosition(this.gameWidth/2, this.gameHeight - 200);
 		table.add(buttonIndicator).height(80);
 		table.bottom();
@@ -192,7 +191,7 @@ public class GameScreen implements Screen {
 		}
 		
 		GameState display=gameController.getCurrentState();
-
+/*
 		if (display==GameState.REDWIN){
 			show="RED HAS WON";
 		}else if(display==GameState.BLUEWIN){
@@ -200,11 +199,15 @@ public class GameScreen implements Screen {
 		}else if(display==GameState.DRAW){
 			show="This match is a draw.";
 		}else{
-			show="This game is still in progres.";
+			show="Game still in progres.";
 		}
-		System.out.println(show);
-
-		show();
+		//System.out.println(show);
+*/
+		if (show!=gameController.display){
+			show();
+			show=gameController.display;
+		}
+		
 		batch.end();
 		stage.draw();
 	}
