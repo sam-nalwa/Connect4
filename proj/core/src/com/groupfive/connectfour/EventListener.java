@@ -96,7 +96,7 @@ public class EventListener implements InputProcessor{
 			} else if(buttonName=="saveButton"){
 				try {
 					this.errorList = gc.endFreePlace();
-					if(this.errorList.isEmpty()){
+					if(this.errorList == null || this.errorList.isEmpty()){
 						FileIO.save(gc.getBoard(),gc.getTurn().toString());
 					}
 				} catch (IOException e) {
