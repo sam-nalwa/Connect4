@@ -144,7 +144,6 @@ public class GameControllerTest {
 			}
 			gameTester.switchColour();
 		}
-		Client.printBoard(gmBrd);
 		assertEquals(gameTester.getCurrentState(),GameState.DRAW);
 	}
 }

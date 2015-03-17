@@ -127,7 +127,7 @@ public class Board{
 		}
 		return null;
 	}
-	
+	//Checks if the board is in an unwinnable/draw state
 	boolean checkDraw(){
 		int numCols = slots.length;
 		int numRows = slots[0].length;
