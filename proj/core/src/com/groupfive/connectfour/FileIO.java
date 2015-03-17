@@ -78,33 +78,7 @@ public class FileIO{
 		
 
 }
-/*		
-    	
-    	//add the current state to the list of saved games
-    	String[] temp1 = new String[]{date, gameTokens, pTurn};
-    	data.add([temp1]);
-		
-		//Write the list of saved games to save.txt 
-    	Writer wr = null;
-    	try {
-    		File f = new File("save.txt");
-    		wr = new BufferedWriter(new FileWriter(f));
-    	
-    		for(int k = 0; k < data.size(); k++){
-    			for(int l = 0; l<3; l++){
-    				wr.write(data.get(k)[l] + "@");
-    			}
-    			wr.write("\n");
-    		}
 
-      	}catch(FileNotFoundException e){
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		wr.close();
-  }
- */
 
  //Loads the gameState specified at index loadGame
   public static GameController load(Integer loadGame) throws IOException{
