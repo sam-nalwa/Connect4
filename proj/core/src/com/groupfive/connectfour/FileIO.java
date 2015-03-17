@@ -14,6 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
 public class FileIO{
 
   
@@ -23,50 +26,43 @@ public class FileIO{
 		
 	 ArrayList<String[]> data = new ArrayList<String[]>();
 	  //Read contents of file into arraylist data
-	  BufferedReader br = new BufferedReader(new FileReader("assets/save.txt"));
-	  PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("assets/save.txt")));
 	 // PrintStream output = new PrintStream(new File("save.txt"));
 	  String line="";
 	  int count=0;
-	  try{
-		  while((/*line = */br.readLine()) != null){
-				//String[] temp = line.split(",");
-				//data.add(temp);
-			  count++;
-		  }
-			//Construct a string of the format RB- based on the state of the gameBoard
-		  String gameTokens = "";
+	  //Construct a string of the format RB- based on the state of the gameBoard
+  String gameTokens = "";
 
-		  for (int i = 0; i < 8; i++){
-			  for (int j = 0; j < 7; j++){
-				  Token temp = currBoard.getToken(i,j);
+  for (int i = 0; i < 7; i++){
+	  for (int j = 0; j < 6; j++){
+		  Token temp = currBoard.getToken(i,j);
 
-				  if (temp.getState() == TokenState.RED){
-					  gameTokens +="R";
-				  }
-				  else if(temp.getState() == TokenState.BLUE){
-					  gameTokens += "B";
-				  }
-				  else{
-					  gameTokens += "-";
-				  }
-			  }
+		  if (temp.getState() == TokenState.RED){
+			  gameTokens +="R";
 		  }
-		  
-		  //saves the current date/time
-		  Date myDate = new Date();
-		  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy:HH-mm-ss");
-		  String date = sdf.format(myDate);
-		  out.println(date+"@"+gameTokens+"@"+pTurn);
-		  
-		}catch(FileNotFoundException e){
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+		  else if(temp.getState() == TokenState.BLUE){
+			  gameTokens += "B";
+		  }
+		  else{
+			  gameTokens += "-";
+		  }
+	  }
+  }
+  
+  //saves the current date/time
+  Date myDate = new Date();
+  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy:HH-mm-ss");
+  String date = sdf.format(myDate);
+  
+  
+  //Append text to file
+  FileHandle file = Gdx.files.local("save.txt");
+  file.writeString(date+"@"+gameTokens+"@"+pTurn, true); 
 	  
-		br.close();
-		out.close();
+  System.out.println("GameState Saved.");
+  
+  FileHandle test = Gdx.files.internal("save.txt");
+  String text = test.readString();
+  System.out.println(text);
 		
 
 }
