@@ -12,6 +12,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class GameScreen implements Screen {
 	
@@ -100,9 +105,23 @@ public class GameScreen implements Screen {
 		//Load the current board state
 		boardState = gameController.getBoard();
 
-		
+		Stage stage = new Stage();
+
 		//DRAW ERRTHING
 		batch.begin();
+		
+		TextureAtlas atlas = new TextureAtlas("blueButtons.pack");
+		Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
+		
+		Table table = new Table(skin);
+		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+		TextButton buttonIndicator = new TextButton("Game on", skin);
+		buttonIndicator.setPosition(this.gameWidth - 200, this.gameHeight - 200);
+		table.add(buttonIndicator).height(80);
+		table.bottom();
+		stage.addActor(table);
+		
 		
 		
 		//If we're in free placement mode, then draw the stuff associated with it
