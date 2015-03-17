@@ -82,6 +82,24 @@ public class GameController{
 		}
 	}
 	
+	public void insertPiece(int col, int row, TokenState colour){
+		colourPlacing = colour;
+		insertPiece(col,row);
+	}
+	public GameState getCurrentState(){
+		TokenState winner = gameBoard.checkWin();
+
+		if (winner == TokenState.RED){
+			return GameState.REDWIN;
+		} else if (winner == TokenState.BLUE){
+			return GameState.BLUEWIN;
+		}else if (gameBoard.checkDraw()){
+			return GameState.DRAW;
+		}else{
+			return GameState.INPROGRESS;
+		}
+	}
+	
 	public boolean isFreePlacing(){
 		return this.freePlaceMode;
 	}
