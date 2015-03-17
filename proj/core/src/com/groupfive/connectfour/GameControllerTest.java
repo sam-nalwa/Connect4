@@ -89,4 +89,60 @@ public class GameControllerTest {
 			}
 		}
 	}
+	@Test
+	public final void testInsertPiece(){
+		gameTester = new GameController(true);
+		gameTester.insertPiece(3, 3, TokenState.RED);
+		assertEquals(gameTester.getBoard().getToken(3, 3),TokenState.RED);
+		gameTester.insertPiece(0, 5, TokenState.BLUE);
+		assertEquals(gameTester.getBoard().getToken(0, 5),TokenState.BLUE);
+		gameTester.insertPiece(1, 4, TokenState.BLUE);
+		assertEquals(gameTester.getBoard().getToken(1, 4),TokenState.BLUE);
+		gameTester.insertPiece(4, 4, TokenState.RED);
+		assertEquals(gameTester.getBoard().getToken(4, 4),TokenState.RED);
+		gameTester = new GameController(false);
+		gameTester.insertPiece(3, 3, TokenState.EMPTY);
+		assertEquals(gameTester.getBoard().getToken(3, 3),TokenState.EMPTY);
+		gameTester.insertPiece(0, 5, TokenState.EMPTY);
+		assertEquals(gameTester.getBoard().getToken(0, 5),TokenState.EMPTY);
+		gameTester.insertPiece(1, 4, TokenState.EMPTY);
+		assertEquals(gameTester.getBoard().getToken(1, 4),TokenState.EMPTY);
+		gameTester.insertPiece(4, 4, TokenState.EMPTY);
+		assertEquals(gameTester.getBoard().getToken(4, 4),TokenState.EMPTY);
+
+	}
+	@Test
+	public final void testGetCurrentState(){
+		gameTester = new GameController(false);
+		TokenState firstPlayer = gameTester.getTurn();
+		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
+		gameTester.insertPiece(0,0);
+		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
+		gameTester.insertPiece(1,0);
+		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
+		gameTester.insertPiece(0,1);
+		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
+		gameTester.insertPiece(1,1);
+		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
+		gameTester.insertPiece(0,2);
+		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
+		gameTester.insertPiece(1,2);
+		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
+		gameTester.insertPiece(0,3);
+		assertEquals(gameTester.getCurrentState(),GameState.INPROGRESS);
+		gameTester.insertPiece(1,3);
+		if (firstPlayer == TokenState.RED){
+			assertEquals(gameTester.getCurrentState(),GameState.REDWIN);
+		}else{
+			assertEquals(gameTester.getCurrentState(),GameState.BLUEWIN);
+		}
+		gameTester = new GameController(false);
+		Board gmBrd = gameTester.getBoard();
+		for (int i = 0; i < gmBrd.colLength; i++){
+			for (int j = 0; j < gmBrd.rowLength; j++){
+				gameTester.insertPiece(i,j);
+			}
+		}
+		assertEquals(gameTester.getCurrentState(),GameState.DRAW);
+	}
 }

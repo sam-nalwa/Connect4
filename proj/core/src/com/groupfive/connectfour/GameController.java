@@ -85,10 +85,13 @@ public class GameController{
 			return success;
 		}
 	}
-	
+	//A insertpiece that can be used to place a specifc colour
+	//Only valid in freePlaceMode
 	public void insertPiece(int col, int row, TokenState colour){
-		colourPlacing = colour;
-		insertPiece(col,row);
+		if (freePlaceMode){
+			colourPlacing = colour;
+			insertPiece(col,row);
+		}
 	}
 	public GameState getCurrentState(){
 		TokenState winner = gameBoard.checkWin();
