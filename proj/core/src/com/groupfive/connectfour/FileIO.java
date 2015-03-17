@@ -56,7 +56,7 @@ public class FileIO{
   
   //Append text to file
   FileHandle file = Gdx.files.local("save.txt");
-  file.writeString(date+"@"+gameTokens+"@"+pTurn, true); 
+  file.writeString(date+"@"+gameTokens+"@"+pTurn+"\n", true); 
 	  
   System.out.println("GameState Saved.");
   
