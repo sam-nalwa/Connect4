@@ -77,33 +77,7 @@ public class FileIO{
 		
 
 }
-/*		
-    	
-    	//add the current state to the list of saved games
-    	String[] temp1 = new String[]{date, gameTokens, pTurn};
-    	data.add([temp1]);
-		
-		//Write the list of saved games to save.txt 
-    	Writer wr = null;
-    	try {
-    		File f = new File("save.txt");
-    		wr = new BufferedWriter(new FileWriter(f));
-    	
-    		for(int k = 0; k < data.size(); k++){
-    			for(int l = 0; l<3; l++){
-    				wr.write(data.get(k)[l] + "@");
-    			}
-    			wr.write("\n");
-    		}
 
-      	}catch(FileNotFoundException e){
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		wr.close();
-  }
- */
 
  //Loads the gameState specified at index loadGame
   public static void load(Integer loadGame) throws IOException{
@@ -115,17 +89,20 @@ public class FileIO{
 	 
 	  //Read contents of file to get token Locations and player turn
 	  BufferedReader br = null;
-	 /*
+	  FileHandle test = Gdx.files.internal("save.txt");
+	  String text = test.readString();
+	  String[] allstates=text.split("\n");
 	  try{
-			br = new BufferedReader(new FileReader("save.txt"));
-			while((line = br.readLine())  != null ){
-				
+		  	for (int i=0; i<allstates.length;i++){
+		  		
+		  		br = new BufferedReader(new FileReader("save.txt"));
+				/*
 				if(lineCount = loadGame){
 					String[] temp = line.split("@");
 					tokenStates = temp[1];
 					playerTurn = temp[2];
 				}
-				
+				*/
 			}
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
@@ -133,7 +110,7 @@ public class FileIO{
 			e.printStackTrace();
 		} 
 		br.close();
-		*/
+		
 		
 	 
 	  for(int i = 0; i<tokenStates.length(); i++){
