@@ -91,7 +91,8 @@ public class MMenu implements Screen{
 		 buttonLoad.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y){
-		 displayLoader(20);
+		 
+		 displayLoader(FileIO.getSaveCount());
 		 }
 		});
 		 		 

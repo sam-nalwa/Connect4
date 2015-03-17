@@ -16,10 +16,21 @@ import java.util.Date;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.sun.xml.internal.ws.util.StringUtils;
 
 public class FileIO{
 
-  
+  public static Integer getSaveCount(){
+	  FileHandle text = Gdx.files.internal("assets/save.txt");
+	  String s = text.readString();
+	  int counter = 0;
+	  for( int i=0; i<s.length(); i++ ) {
+		    if( s.charAt(i) == '\n' ) {
+		        counter++;
+		    } 
+		}
+	  return counter;
+  }
   //Saves the current gamestate into a textfile
   public static void save(Board currBoard, String pTurn)throws IOException {
 
