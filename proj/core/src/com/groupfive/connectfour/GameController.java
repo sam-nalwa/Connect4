@@ -9,6 +9,7 @@ public class GameController{
 	private Board gameBoard;
 	private boolean freePlaceMode;//true if the game is in free placing mode
 	private TokenState firstMove;//Used in validating the board in free place mode
+	public String display;
 	//This constructor just intializes the game with a randomly chosen player
 	//Used for normal game beginning//
 	public GameController(boolean freePlaceMode){
@@ -97,12 +98,16 @@ public class GameController{
 		TokenState winner = gameBoard.checkWin();
 
 		if (winner == TokenState.RED){
+			display="Red Has Won";
 			return GameState.REDWIN;
 		} else if (winner == TokenState.BLUE){
+			display="Blue has Won.";
 			return GameState.BLUEWIN;
 		}else if (gameBoard.checkDraw()){
+			display="This aint goin nowhere";
 			return GameState.DRAW;
 		}else{
+			display="game still in process homie";
 			return GameState.INPROGRESS;
 		}
 	}

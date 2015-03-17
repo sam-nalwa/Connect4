@@ -14,9 +14,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 
 public class GameScreen implements Screen {
 	
@@ -24,7 +27,10 @@ public class GameScreen implements Screen {
 	//We need to load all of the assets here
 	private Texture redToken;
 	private Texture blueToken;
+	private TextureAtlas atlas;
+	private Skin skin;
 	private Texture board;
+	private Stage stage;
 	
 	//Buttons
 	private HashMap<String,Sprite> buttons;
@@ -47,6 +53,8 @@ public class GameScreen implements Screen {
 	private Board boardState;
 	public Object font;
 	final ConnectFour game;
+	private Table table;
+	private String show;
 	
 	public GameScreen(final ConnectFour gamee,boolean check){
 		this.game=gamee;
@@ -93,8 +101,17 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 		
+		stage = new Stage();
+		TextureAtlas atlas = new TextureAtlas("blueButtons.pack");
+		Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
+		Table table = new Table(skin);
+		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		TextButton buttonIndicator = new TextButton(show, skin);
+		buttonIndicator.setPosition(this.gameWidth/2, this.gameHeight - 200);
+		table.add(buttonIndicator).height(80);
+		table.bottom();
+		stage.addActor(table);
 	}
 
 	@Override
@@ -104,23 +121,13 @@ public class GameScreen implements Screen {
 		
 		//Load the current board state
 		boardState = gameController.getBoard();
-
-		Stage stage = new Stage();
+		stage.act(delta);
+		
+		//Stage stage = new Stage();
 
 		//DRAW ERRTHING
 		batch.begin();
 		
-		TextureAtlas atlas = new TextureAtlas("blueButtons.pack");
-		Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
-		
-		Table table = new Table(skin);
-		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-		TextButton buttonIndicator = new TextButton("Game on", skin);
-		buttonIndicator.setPosition(this.gameWidth - 200, this.gameHeight - 200);
-		table.add(buttonIndicator).height(80);
-		table.bottom();
-		stage.addActor(table);
 		
 		
 		
@@ -184,7 +191,22 @@ public class GameScreen implements Screen {
 			}
 		}
 		
+		GameState display=gameController.getCurrentState();
+
+		if (display==GameState.REDWIN){
+			show="RED HAS WON";
+		}else if(display==GameState.BLUEWIN){
+			show="BLUE HAS WON";
+		}else if(display==GameState.DRAW){
+			show="This match is a draw.";
+		}else{
+			show="This game is still in progres.";
+		}
+		System.out.println(show);
+
+		show();
 		batch.end();
+		stage.draw();
 	}
 
 	@Override
@@ -213,7 +235,11 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		stage.dispose();
+		skin.dispose();
+		atlas.dispose();
+		batch.dispose();
+		
 		
 	}
 }
