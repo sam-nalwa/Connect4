@@ -180,6 +180,7 @@ public class MMenu implements Screen{
 								loadGame(j);
 							}
 						});
+						//algorithms to load and delete save stores
 						loadDelete.add(buttonSelectLoad);loadDelete.row();
 						buttonSelectLoad = new TextButton("Delete This Game", skin);
 						buttonSelectLoad.addListener(new ClickListener(){
@@ -204,6 +205,7 @@ public class MMenu implements Screen{
 								 table.setVisible(true);
 							}
 						});
+						//add table to the display
 						loadDelete.add(buttonSelectLoad);loadDelete.row();
 						buttonSelectLoad.pad(20);
 						loadDelete.bottom();
