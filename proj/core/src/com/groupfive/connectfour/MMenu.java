@@ -200,7 +200,8 @@ public class MMenu implements Screen{
 								 for (int d=0;d<(allgames.length-1);d++){
 									 file.writeString(allgames[d]+"\n",true);
 								 }
-								 
+								 loadDelete.setVisible(false);
+								 table.setVisible(true);
 							}
 						});
 						loadDelete.add(buttonSelectLoad);loadDelete.row();
