@@ -182,6 +182,7 @@ public class MMenu implements Screen{
 								loadGame(j);
 							}
 						});
+						loadDelete.getCell(buttonSelectLoad).spaceBottom(10);
 						loadDelete.add(buttonSelectLoad);loadDelete.row();
 						buttonSelectLoad = new TextButton("Delete This Game", skin);
 						buttonSelectLoad.addListener(new ClickListener(){
