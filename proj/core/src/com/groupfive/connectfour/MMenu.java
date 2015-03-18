@@ -190,7 +190,8 @@ public class MMenu implements Screen{
 	
 	public void loadGame(int index) {
 		try {
-			FileIO.load(index);
+			GameController controller=FileIO.load(index);
+			game.setScreen(new GameScreen(game,controller));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -81,7 +81,7 @@ public class GameScreen implements Screen {
 		buttons.put("resetButton",new Sprite(new Texture("reset.png")));
 			buttons.get("resetButton").setPosition(this.gameWidth-100, 100);
 		buttons.put("saveButton", new Sprite(new Texture("save.png")));
-			buttons.get("saveButton").setPosition(this.gameWidth-100, this.gameHeight-50);
+			buttons.get("saveButton").setPosition(this.gameWidth-100, 200);
 		
 		//Set up the camera
 		camera = new OrthographicCamera();
@@ -89,6 +89,48 @@ public class GameScreen implements Screen {
 		
 		//Set up the game logic (initializing in free place mode)
 		gameController = new GameController(check);
+		
+		
+		//Event listener!
+		eventListener = new EventListener();
+		Gdx.input.setInputProcessor(eventListener);
+		eventListener.gc = gameController;
+		eventListener.gameHeight = this.gameHeight;
+		eventListener.boardOffsetX = this.boardOffsetX;
+		eventListener.boardOffsetY = this.boardOffsetY;
+		eventListener.buttons = this.buttons;
+		
+	}
+	
+	public GameScreen(final ConnectFour gamee,GameController control){
+		this.game=gamee;
+		
+		batch = new SpriteBatch();
+		
+		//Load our images
+		redToken = new Texture("reds.png");
+		blueToken = new Texture("blues.png");
+		board = new Texture("sboard.png");
+		
+		//Load buttons
+		buttons = new HashMap<String,Sprite>();
+		buttons.put("redSwitch", new Sprite(redToken));
+			buttons.get("redSwitch").setPosition(25, this.gameHeight-100);
+		buttons.put("blueSwitch", new Sprite(blueToken));
+			buttons.get("blueSwitch").setPosition(this.gameWidth-100,this.gameHeight-100);
+		buttons.put("okayButton", new Sprite(new Texture("ok.png")));
+			buttons.get("okayButton").setPosition(this.gameWidth/2 - 75,10);
+		buttons.put("resetButton",new Sprite(new Texture("reset.png")));
+			buttons.get("resetButton").setPosition(this.gameWidth-100, 100);
+		buttons.put("saveButton", new Sprite(new Texture("save.png")));
+			buttons.get("saveButton").setPosition(this.gameWidth-100, 200);
+		
+		//Set up the camera
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false,this.gameWidth,this.gameHeight);
+		
+		//Set up the game logic (initializing in free place mode)
+		gameController = control;
 		
 		
 		//Event listener!

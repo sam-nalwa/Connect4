@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.badlogic.gdx.Gdx;
@@ -20,6 +21,7 @@ import com.sun.xml.internal.ws.util.StringUtils;
 
 public class FileIO{
 
+	
   public static Integer getSaveCount(){
 	  FileHandle text = Gdx.files.internal("assets/save.txt");
 	  String s = text.readString();
@@ -82,13 +84,13 @@ public class FileIO{
 
  //Loads the gameState specified at index loadGame
   public static GameController load(Integer loadGame) throws IOException{
-	 
+	 System.out.println(loadGame);
 	 //Load the file
 	 FileHandle file = Gdx.files.internal("save.txt");
 	 String[] text = file.readString().split("@",0);
-	 String tokenPlaces = text[1];
-	 String playerTurn = text[2];
-	 int lineCount = 0;
+	 System.out.println(Arrays.toString(text));
+	 String tokenPlaces = text[(1+(loadGame*2))];
+	 String playerTurn = text[(2+(loadGame*2))].split(",")[0];
 	 
 	 GameController gc = new GameController(true);
 	 
@@ -116,6 +118,7 @@ public class FileIO{
   	
 	  gc.endFreePlace();
 	  return gc;
+
   }
   
 }
