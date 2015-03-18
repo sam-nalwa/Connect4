@@ -21,7 +21,7 @@ Expected: The board is empty again and the text is reset to indicate a game in p
 Action: Click slots (0,0), (0,1), (1,0), (1,1), (2,0), (2,1), and then (3,0).
 Expected: Slots (x,0) x=0..3 are filled with the second colour and slots (y,1) y=0..2 are filled with first colour. The text at the bottom indicates that the second player has won the game.
 
-Action: Click the save button, close and reopen the app, click load game, click the button with the date and time that you had clicked save.
+Action: Click the save button, close and reopen the app, click load game, click the button with the date and time that you had clicked save, and then click load this game.
 Expected: The screen has reloaded with the same state as the previous tests.
 
 Action: Close the window and open it again, then click the create board button.
