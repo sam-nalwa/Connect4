@@ -1,6 +1,10 @@
 package com.groupfive.connectfour;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
+import net.dermetfan.gdx.utils.ArrayUtils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -31,7 +35,7 @@ public class MMenu implements Screen{
 	 private Skin skin=new Skin(Gdx.files.internal("menuSkin.json"), atlas); //add the fonts and charachters in for the text of the buttons
 
 	
-	 private Table table, loadTable;//declare the main menu and load game tables
+	 private Table table, loadTable, loadDelete;//declare the main menu and load game tables
 	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad;//declare all the text buttons implemted 
 	 
 	
@@ -122,7 +126,7 @@ public class MMenu implements Screen{
 		 }
 		 });
 		 
-		 
+		 //add all the buttons to the main menu
 		 table.add(buttonPlay).height(80);
 		 table.getCell(buttonPlay).spaceBottom(10);
 		 table.row();
@@ -168,7 +172,40 @@ public class MMenu implements Screen{
 				buttonSelectLoad.addListener(new ClickListener(){
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						loadGame(j);
+						loadTable.setVisible(false);
+						loadDelete = new Table(skin);
+						loadDelete.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+						buttonSelectLoad = new TextButton("Load This Game", skin);
+						buttonSelectLoad.addListener(new ClickListener(){
+							@Override
+							public void clicked(InputEvent event, float x, float y) {
+								loadGame(j);
+							}
+						});
+						loadDelete.add(buttonSelectLoad);loadDelete.row();
+						buttonSelectLoad = new TextButton("Delete This Game", skin);
+						buttonSelectLoad.addListener(new ClickListener(){
+							@Override
+							public void clicked(InputEvent event, float x, float y) {
+								 FileHandle file = Gdx.files.internal("save.txt");
+								 String[] allgames=file.readString().split("\n");
+								 List result = new LinkedList();
+								 for(String item : allgames){
+									 if(!allgames[j].equals(item)){
+										 result.add(item);
+									 } 
+								 }
+								 result.toArray(allgames);
+								 file.writeString("", false);
+								// for (d=0;d<)
+								 //file.writeString(allgames[d]);
+							}
+						});
+						loadDelete.add(buttonSelectLoad);loadDelete.row();
+						buttonSelectLoad.pad(20);
+						loadDelete.bottom();
+						stage.addActor(loadDelete);
+						//
 					}
 				});
 
@@ -186,6 +223,7 @@ public class MMenu implements Screen{
 
 			}
 		}
+		//if there are no saves display that there are no saved and give the options to go back 
 		if (count==1){
 			table.setVisible(false);
 			loadTable = new Table(skin);
