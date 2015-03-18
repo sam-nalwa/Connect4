@@ -27,8 +27,8 @@ public class GameScreen implements Screen {
 	//We need to load all of the assets here
 	private Texture redToken;
 	private Texture blueToken;
-	private TextureAtlas atlas;
-	private Skin skin;
+	//private TextureAtlas atlas;
+	//private Skin skin;
 	private Texture board;
 	private Stage stage;
 	
@@ -55,6 +55,10 @@ public class GameScreen implements Screen {
 	final ConnectFour game;
 	private Table table;
 	private String show;
+	private GameState oldGameState;
+	private TextureAtlas atlas = new TextureAtlas("blueButtons.pack");
+	private Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
+	
 	
 	public GameScreen(final ConnectFour gamee,boolean check){
 		this.game=gamee;
@@ -102,8 +106,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		stage = new Stage();
-		TextureAtlas atlas = new TextureAtlas("blueButtons.pack");
-		Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
 		Table table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		TextButton buttonIndicator = new TextButton(show, skin);
@@ -191,24 +193,27 @@ public class GameScreen implements Screen {
 		}
 		
 		GameState display=gameController.getCurrentState();
-
-		if (display==GameState.REDWIN){
-			show="Red Has Won!!";
-		}else if(display==GameState.BLUEWIN){
-			show="Blue has Won!!";
-		}else if(display==GameState.DRAW){
-			show="Its A Draw!!";
-		}else{
-			show="Game In Progress!!";
+		if (oldGameState!=gameController.getCurrentState()){
+			if (display==GameState.REDWIN){
+				show="Red Has Won!!";
+			}else if(display==GameState.BLUEWIN){
+				show="Blue has Won!!";
+			}else if(display==GameState.DRAW){
+				show="Its A Draw!!";
+			}else{
+				show="Game In Progress!!";
+			}
 		}
+		oldGameState=gameController.getCurrentState();
 		show();
 		//System.out.println(show);
-
-		// if (show!=gameController.display){
-		// 	show();
-		// 	show=gameController.display;
-		// }
-		
+/*
+		if (show!=gameController.display){
+			System.out.println("its changed");
+			show();
+			show=gameController.display;
+		}
+*/
 		batch.end();
 		stage.draw();
 	}
