@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,10 +27,12 @@ public class MMenu implements Screen{
 	 private TextureRegion textureframe;
 	 private SpriteBatch batch;
 	 private Stage stage;
-	 private TextureAtlas atlas;
-	 private Skin skin;
+	 private TextureAtlas atlas=new TextureAtlas("blueButtons.pack");
+	 private Skin skin=new Skin(Gdx.files.internal("menuSkin.json"), atlas);
+
+	
 	 private Table table, loadTable;
-	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad;
+	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad;
 	 
 	
 	
@@ -66,10 +69,7 @@ public class MMenu implements Screen{
 		 stage = new Stage();
 		 
 		 Gdx.input.setInputProcessor(stage);
-		 
-		 atlas = new TextureAtlas("blueButtons.pack");
-		 skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas);
-		 
+		  
 		 table = new Table(skin);
 		 table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		 
@@ -91,8 +91,9 @@ public class MMenu implements Screen{
 		 buttonLoad.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y){
-		 
-		 displayLoader(FileIO.getSaveCount());
+		 FileHandle file = Gdx.files.internal("save.txt");
+		 String[] allgames=file.readString().split("\n");
+		 displayLoader(allgames.length);
 		 }
 		});
 		 		 
@@ -145,11 +146,14 @@ public class MMenu implements Screen{
 		 loadTable = new Table(skin);
 		 loadTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		 int r = 0;
+		 FileHandle file = Gdx.files.internal("save.txt");
+		 String[] allgames=file.readString().split("\n");
 		 //Create a new button for every save slot
 		for (int i=0; i < count; i++) {
 			//Increment r
 			 r++;
-			 TextButton buttonSelectLoad = new TextButton(String.format("Save #%d", i), skin);
+			 String Stringdate=allgames[i].split("@")[0];
+			 buttonSelectLoad = new TextButton(Stringdate, skin);
 			 buttonSelectLoad.pad(20);
 			 //We must redefine i in order for it to be used in the following method
 			 
@@ -186,7 +190,6 @@ public class MMenu implements Screen{
 	
 	public void loadGame(int index) {
 		try {
-			//Replace game
 			FileIO.load(index);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

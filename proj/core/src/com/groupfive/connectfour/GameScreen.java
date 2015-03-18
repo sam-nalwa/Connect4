@@ -27,8 +27,8 @@ public class GameScreen implements Screen {
 	//We need to load all of the assets here
 	private Texture redToken;
 	private Texture blueToken;
-	private TextureAtlas atlas;
-	private Skin skin;
+	//private TextureAtlas atlas;
+	//private Skin skin;
 	private Texture board;
 	private Stage stage;
 	
@@ -55,6 +55,9 @@ public class GameScreen implements Screen {
 	final ConnectFour game;
 	private Table table;
 	private String show;
+	private TextureAtlas atlas = new TextureAtlas("blueButtons.pack");
+	private Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
+	
 	
 	public GameScreen(final ConnectFour gamee,boolean check){
 		this.game=gamee;
@@ -102,8 +105,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		stage = new Stage();
-		TextureAtlas atlas = new TextureAtlas("blueButtons.pack");
-		Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
 		Table table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		TextButton buttonIndicator = new TextButton(/*show*/gameController.display, skin);
@@ -204,6 +205,7 @@ public class GameScreen implements Screen {
 		//System.out.println(show);
 */
 		if (show!=gameController.display){
+			System.out.println("its changed");
 			show();
 			show=gameController.display;
 		}

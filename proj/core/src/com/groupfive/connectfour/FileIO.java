@@ -84,8 +84,8 @@ public class FileIO{
   public static GameController load(Integer loadGame) throws IOException{
 	 
 	 //Load the file
-	  FileHandle file = Gdx.files.internal("save.txt");
-	  String[] text = file.readString().split("@",0);
+	 FileHandle file = Gdx.files.internal("save.txt");
+	 String[] text = file.readString().split("@",0);
 	 String tokenPlaces = text[1];
 	 String playerTurn = text[2];
 	 int lineCount = 0;
