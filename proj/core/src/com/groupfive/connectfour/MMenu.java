@@ -21,25 +21,25 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MMenu implements Screen{
 	
-	final ConnectFour game;
-	OrthographicCamera camera;
+	final ConnectFour game;//declare the game variable
+	OrthographicCamera camera;//set a 'camera' to be used by libgdx
 	
-	 private TextureRegion textureframe;
-	 private SpriteBatch batch;
-	 private Stage stage;
-	 private TextureAtlas atlas=new TextureAtlas("blueButtons.pack");
-	 private Skin skin=new Skin(Gdx.files.internal("menuSkin.json"), atlas);
+	 private TextureRegion textureframe;//declare a 'textureframe' to which graphics can be added
+	 private SpriteBatch batch;//declare sprites
+	 private Stage stage;//declare the 'stage' to which 'actors'/elements can be added
+	 private TextureAtlas atlas=new TextureAtlas("blueButtons.pack");//create a new 'atlas' (picture files for the buttons)
+	 private Skin skin=new Skin(Gdx.files.internal("menuSkin.json"), atlas); //add the fonts and charachters in for the text of the buttons
 
 	
-	 private Table table, loadTable;
-	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad;
+	 private Table table, loadTable;//declare the main menu and load game tables
+	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad;//declare all the text buttons implemted 
 	 
 	
 	
 	public MMenu(ConnectFour c4game){
-		game=c4game;
-		camera=new OrthographicCamera();
-		camera.setToOrtho(false,600,800);
+		game=c4game;//create a new game
+		camera=new OrthographicCamera();//create a new camera
+		camera.setToOrtho(false,600,800);//set the dimentions 
 	}
 		
 
@@ -54,23 +54,26 @@ public class MMenu implements Screen{
 		batch.draw(textureframe, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.end();
 		stage.draw();
-		 
+		//render all the elements
 		game.batch.begin();
 		game.batch.end();
 				 
 		
 	}
 	
+	
 	@Override
 	public void show() {
+		//displaying all the parts on the screen
 		batch = new SpriteBatch();
 		 textureframe = new TextureRegion(new Texture(Gdx.files.internal("background.png")),0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		 
 		 stage = new Stage();
 		 
 		 Gdx.input.setInputProcessor(stage);
-		  
+		  //declare the new table with the imported 'skin' file
 		 table = new Table(skin);
+		 //set the bounds for the table
 		 table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		 
 		 //Create and implement the PLAY button
@@ -80,20 +83,21 @@ public class MMenu implements Screen{
 			 
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
-		 game.setScreen(new GameScreen(game,false));
+		 game.setScreen(new GameScreen(game,false));//create a new empty game in regular more when play is clicked 
 		 }
 		 });
 		 
 		 //Create and implement the load game button
-		 
 		 buttonLoad = new TextButton("Load Game", skin);
 		 buttonLoad.pad(20);
 		 buttonLoad.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y){
-		 FileHandle file = Gdx.files.internal("save.txt");
-		 String[] allgames=file.readString().split("\n");
-		 displayLoader(allgames.length);
+			 
+		 FileHandle file = Gdx.files.internal("save.txt");//import the file with all the saves 
+		 String[] allgames=file.readString().split("\n");//split the string to find out how many saves there are
+		 System.out.println(allgames.length);
+		 displayLoader(allgames.length);//call the function to load the game in
 		 }
 		});
 		 		 
@@ -138,47 +142,69 @@ public class MMenu implements Screen{
 	//Called when buttonLoad is pressed
 	
 	public void displayLoader(int count) {
-		//Hide our table of buttons
-		table.setVisible(false);
-		
-		//Start drawing a new table of buttons
-		
-		 loadTable = new Table(skin);
-		 loadTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		 int r = 0;
-		 FileHandle file = Gdx.files.internal("save.txt");
-		 String[] allgames=file.readString().split("\n");
-		 //Create a new button for every save slot
-		for (int i=0; i < count; i++) {
-			//Increment r
-			 r++;
-			 String Stringdate=allgames[i].split("@")[0];
-			 buttonSelectLoad = new TextButton(Stringdate, skin);
-			 buttonSelectLoad.pad(20);
-			 //We must redefine i in order for it to be used in the following method
-			 
-			 final int j = i;
-			 
-			 //Create a method which is called when the button is clicked
-			 buttonSelectLoad.addListener(new ClickListener(){
-			 @Override
-			 public void clicked(InputEvent event, float x, float y) {
-				 loadGame(j);
-			 }
-			 });
-			 
-			 //Add our created button to the table
-			 
-			 loadTable.add(buttonSelectLoad).width(350).height(80);
-			 loadTable.getCell(buttonSelectLoad).spaceBottom(10);
-			 
-			 //On every second value of r, start a new row.
-			 
-			 if (r == 2) { 
-				 loadTable.row();
-				 r = 0;
-			 }
+		if (count>1){
+			//Hide our table of buttons
+			table.setVisible(false);
 
+			//Start drawing a new table of buttons
+
+			loadTable = new Table(skin);
+			loadTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			int r = 0;
+			FileHandle file = Gdx.files.internal("save.txt");
+			String[] allgames=file.readString().split("\n");
+			//Create a new button for every save slot
+			for (int i=0; i < count; i++) {
+				//Increment r
+				r++;
+				String Stringdate=allgames[i].split("@")[0];
+				buttonSelectLoad = new TextButton(Stringdate, skin);
+				buttonSelectLoad.pad(20);
+				//We must redefine i in order for it to be used in the following method
+
+				final int j = i;
+
+				//Create a method which is called when the button is clicked
+				buttonSelectLoad.addListener(new ClickListener(){
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						loadGame(j);
+					}
+				});
+
+				//Add our created button to the table
+
+				loadTable.add(buttonSelectLoad).width(350).height(80);
+				loadTable.getCell(buttonSelectLoad).spaceBottom(10);
+
+				//On every second value of r, start a new row.
+
+				if (r == 2) { 
+					loadTable.row();
+					r = 0;
+				}
+
+			}
+		}
+		if (count==1){
+			table.setVisible(false);
+			loadTable = new Table(skin);
+			loadTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			buttonSelectLoad = new TextButton("There Are No Saves Yet", skin);
+			buttonSelectLoad.pad(20);
+			loadTable.add(buttonSelectLoad);
+			loadTable.getCell(buttonSelectLoad).spaceBottom(150);
+			loadTable.row();
+			buttonSelectLoad = new TextButton("<  Go Back", skin);
+			buttonSelectLoad.pad(20);
+			loadTable.add(buttonSelectLoad).height(85);
+			buttonSelectLoad.addListener(new ClickListener(){
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					loadTable.setVisible(false);
+					table.setVisible(true);
+				}
+			});
 		}
 		loadTable.bottom();
 		stage.addActor(loadTable);
