@@ -24,6 +24,9 @@ Expected: Slots (x,0) x=0..3 are filled with the second colour and slots (y,1) y
 Action: Click the save button, close and reopen the app, click load game, click the button with the date and time that you had clicked save, and then click load this game.
 Expected: The screen has reloaded with the same state as the previous tests.
 
+Action: Click reset and Fill up the game board without winning.
+Expected: The text at the bottom indicates that a draw has occured.
+
 Action: Close the window and open it again, then click the create board button.
 Expected: A screen appears with an empty board, a red button, blue button, an ok button, and a reset button.
 
