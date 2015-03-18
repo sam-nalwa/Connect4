@@ -125,16 +125,16 @@ public class MMenu implements Screen{
 		 });
 		 
 		 //add all the buttons to the main menu
-		 table.add(buttonPlay).height(80);
+		 table.add(buttonPlay).height(90);
 		 table.getCell(buttonPlay).spaceBottom(10);
 		 table.row();
-		 table.add(buttonCreate).height(80);;
+		 table.add(buttonCreate).height(90);;
 		 table.getCell(buttonCreate).spaceBottom(10);
 		 table.row();
-		 table.add(buttonLoad).height(80);
+		 table.add(buttonLoad).height(90);
 		 table.getCell(buttonLoad).spaceBottom(10);
 		 table.row();
-		 table.add(buttonExit).height(80);
+		 table.add(buttonExit).height(90);
 		 table.getCell(buttonExit).spaceBottom(10);
 		 table.bottom();
 		 stage.addActor(table);
