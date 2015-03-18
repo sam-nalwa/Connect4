@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ConnectFour extends Game {
 
-	//HELLO
+	//creating the game class
     public SpriteBatch batch;
     public BitmapFont font;
 

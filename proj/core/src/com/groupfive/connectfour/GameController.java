@@ -46,9 +46,9 @@ public class GameController{
 		int firstMove = generator.nextInt(2 - 0);
 		switch (firstMove) {
 			case 0:
-			return TokenState.RED;
+			return TokenState.RED;//returns the red player's turn 
 			case 1:
-			return TokenState.BLUE;
+			return TokenState.BLUE;//returns the blue play
 			default:
 			System.out.println("generator failed");
 		}
@@ -100,16 +100,16 @@ public class GameController{
 	public GameState getCurrentState(){
 		TokenState winner = gameBoard.checkWin();
 
-		if (winner == TokenState.RED){
-			gameOver = true;
-			return GameState.REDWIN;
-		} else if (winner == TokenState.BLUE){
-			gameOver = true;
-			return GameState.BLUEWIN;
-		}else if (gameBoard.checkDraw()){
-			return GameState.DRAW;
+		if (winner == TokenState.RED){//if the token is red and the game is won
+			gameOver = true;//set game over to true 
+			return GameState.REDWIN;//declare that it is a win of the red player
+		} else if (winner == TokenState.BLUE){//if the token is blue and the game is won
+			gameOver = true;//set game over to true 
+			return GameState.BLUEWIN;//declare that it is a win of the blue player
+		}else if (gameBoard.checkDraw()){//check for a draw
+			return GameState.DRAW;//declare a draw
 		}else{
-			return GameState.INPROGRESS;
+			return GameState.INPROGRESS;//declare the game still in progress
 		}
 	}
 	
