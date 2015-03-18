@@ -169,7 +169,7 @@ public class MMenu implements Screen{
 			 
 			 //Add our created button to the table
 			 
-			 loadTable.add(buttonSelectLoad).height(80);
+			 loadTable.add(buttonSelectLoad).width(350).height(80);
 			 loadTable.getCell(buttonSelectLoad).spaceBottom(10);
 			 
 			 //On every second value of r, start a new row.

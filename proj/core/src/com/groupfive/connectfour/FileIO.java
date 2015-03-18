@@ -62,7 +62,7 @@ public class FileIO{
   
   //saves the current date/time
   Date myDate = new Date();
-  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy:HH-mm-ss");
+  SimpleDateFormat sdf = new SimpleDateFormat("dd/MM-HH:mm");
   String date = sdf.format(myDate);
   
   
