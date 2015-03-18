@@ -8,9 +8,21 @@ Action: Click the exit button.
 Expected: The window closes.
 
 Action: Open the executable again and click the play button.
-Expected: A screen appears with an empty connect 4 board, and a reset button. Note that this screen contains functionality not required at this stage. As such it will be tested at a later date.
+Expected: A screen appears with an empty connect 4 board, a save button and a reset button. There is also some text at the bottom saying "game in progress!!"
 
 We will refer to specific slots on the board using the following agreed upon coordinate system: The coordinate (x,y) represents the slot that is x horizontal positions from the bottom left slot and y vertical positions away from the bottom left slot. For example (0,0) is the bottom left slot itself.
+
+Action: Click slots (0,0), (1,0), (0,1), (1,1), (0,2), (1,2), and then (0,3)
+Expected: Slots (0,x) x=0..3 are filled with the first colour. Slots (1,y) y=0..2 are filled with the second colour. The text at the bottom indicates that the first player to have played (either red or blue) has won the game.
+
+Action: Click the reset button
+Expected: The board is empty again and the text is reset to indicate a game in progress
+
+Action: Click slots (0,0), (0,1), (1,0), (1,1), (2,0), (2,1), and then (3,0).
+Expected: Slots (x,0) x=0..3 are filled with the second colour and slots (y,1) y=0..2 are filled with first colour. The text at the bottom indicates that the second player has won the game.
+
+Action: Click the save button, close and reopen the app, click load game, click the button with the date and time that you had clicked save.
+Expected: The screen has reloaded with the same state as the previous tests.
 
 Action: Close the window and open it again, then click the create board button.
 Expected: A screen appears with an empty board, a red button, blue button, an ok button, and a reset button.
