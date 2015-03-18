@@ -1,3 +1,7 @@
 
 *.class
 /build/
+
+proj/core/src/com/groupfive/connectfour/GameScreen.java
+
+proj/core/src/com/groupfive/connectfour/GameController.java
