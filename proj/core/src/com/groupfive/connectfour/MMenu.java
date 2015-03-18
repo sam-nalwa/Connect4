@@ -187,7 +187,7 @@ public class MMenu implements Screen{
 						buttonSelectLoad.addListener(new ClickListener(){
 							@Override
 							public void clicked(InputEvent event, float x, float y) {
-								 FileHandle file = Gdx.files.internal("save.txt");
+								 FileHandle file = Gdx.files.local("save.txt");
 								 String[] allgames=file.readString().split("\n");
 								 List result = new LinkedList();
 								 for(String item : allgames){
@@ -196,9 +196,13 @@ public class MMenu implements Screen{
 									 } 
 								 }
 								 result.toArray(allgames);
-								 file.writeString("", false);
-								// for (d=0;d<)
-								 //file.writeString(allgames[d]);
+								 for (int d=0;d<allgames.length;d++){
+									 file.writeString("",false);
+								 }
+								 for (int d=0;d<(allgames.length-1);d++){
+									 file.writeString(allgames[d]+"\n",true);
+								 }
+								 
 							}
 						});
 						loadDelete.add(buttonSelectLoad);loadDelete.row();
