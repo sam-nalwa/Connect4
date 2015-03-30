@@ -81,7 +81,7 @@ public class GameController{
 			}
 			gameBoard.freePlace(col,row,colourPlacing);
 			return true;
-		}else if (!gameOver){//We dont insert after the end of the game
+		}else if (!gameOver&&(gameBoard.getToken(col,row).getState()==TokenState.EMPTY)){//We dont insert after the end of the game
 			boolean success = gameBoard.normalPlace(col,colourPlacing);
 			switchColour();
 			return success;
