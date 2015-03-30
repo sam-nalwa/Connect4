@@ -66,9 +66,9 @@ public class FileIO{
 		//Load the file
 		FileHandle file = Gdx.files.internal("save.txt");
 		String[] text = file.readString().split("@",0);//read the file and split it at the "@" symbols
-		String tokenPlaces = text[(1+(loadGame*2))];//get all the token places in the form of a string from the text array
-		String playerTurn = text[(2+(loadGame*2))].split(",")[0];//get all the player turn information in the form of a string from the text array
-		boolean againstAI = null;
+		String tokenPlaces = text[(1+(loadGame*3))];//get all the token places in the form of a string from the text array
+		String playerTurn = text[(2+(loadGame*3))].split(",")[0];//get all the player turn information in the form of a string from the text array
+		boolean againstAI;
 		if (text[3+(loadGame*2)] == "H"){
 			againstAI = false;
 		}
