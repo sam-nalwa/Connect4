@@ -105,6 +105,7 @@ public class GameController{
 			Board gameCopy = new Board(gameBoard);
 			gameCopy.normalPlace(i,colourPlacing);
 			if (gameCopy.checkWin() == colourPlacing){
+				System.out.println("Placed for win");
 				insertPiece(i,gameCopy.rowLength - 1);
 				return;
 			}
@@ -115,6 +116,7 @@ public class GameController{
 			gameCopy.normalPlace(i,colourPlacing);
 			switchColour();
 			if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
+				System.out.println("Placed to block");
 				insertPiece(i,gameCopy.rowLength - 1);
 				return;
 			}
@@ -126,12 +128,13 @@ public class GameController{
 			for (int j = 0; j < gameBoard.rowLength; j++){
 				if (gameBoard.getToken(i,j).getState() == TokenState.EMPTY){
 					row = j;
+					break;
 				}
 			}
 			int moveQuality = 0;
 			if (row != null){
 				for (int k = -1; k <=1; k++){
-					if ((i-1) >= 0 && gameBoard.getToken(i-1,row+k).getState() == colourPlacing){
+					if ((i-1) >= 0 && (row+k) >= 0 && (row +k) < gameBoard.rowLength && gameBoard.getToken(i-1,row+k).getState() == colourPlacing){
 						moveQuality++;
 					}
 				}
@@ -141,7 +144,10 @@ public class GameController{
 				bestMovQuality = moveQuality;
 			}
 		}
-		insertPiece(bestCol,gameBoard.rowLength - 1);
+		System.out.println("Placed with quality: " + bestMovQuality + " at " + bestCol );
+		if (!insertPiece(bestCol,gameBoard.rowLength - 1)){
+			System.out.println("AI insert failed");
+		}
 	}
 	public void playerPlace(int col,int row){
 		insertPiece(col,row);
