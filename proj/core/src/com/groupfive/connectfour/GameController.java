@@ -8,12 +8,13 @@ public class GameController{
 	private TokenState colourPlacing;//The colour to be placed at any given time
 	private Board gameBoard;
 	private boolean freePlaceMode;//true if the game is in free placing mode
+	private boolean vsComputer;
 	private TokenState firstMove;//Used in validating the board in free place mode
 	private boolean gameOver = false;
 	private boolean ai = false;
 	//This constructor just intializes the game with a randomly chosen player
 	//Used for normal game beginning//
-	public GameController(boolean freePlaceMode,boolean vscomputer){
+	public GameController(boolean freePlaceMode,boolean vsComputer){
 		this.freePlaceMode = freePlaceMode;//Storing requested mode
 
 		colourPlacing = pickRandomColour();

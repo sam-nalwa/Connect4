@@ -60,7 +60,7 @@ public class GameScreen implements Screen {
 	private Skin skin = new Skin(Gdx.files.internal("menuSkin.json"), atlas); 
 	
 	
-	public GameScreen(final ConnectFour gamee,boolean freeplacemode,boolean vscomputer){
+	public GameScreen(final ConnectFour gamee,boolean freePlaceMode,boolean vsComputer){
 		this.game=gamee;
 		
 		batch = new SpriteBatch();
@@ -88,7 +88,7 @@ public class GameScreen implements Screen {
 		camera.setToOrtho(false,this.gameWidth,this.gameHeight);
 		
 		//Set up the game logic (initializing in free place mode)
-		gameController = new GameController(freeplacemode,vscomputer);
+		gameController = new GameController(freePlaceMode,vsComputer);
 		
 		
 		//Event listener!
@@ -290,7 +290,5 @@ public class GameScreen implements Screen {
 		skin.dispose();
 		atlas.dispose();
 		batch.dispose();
-		
-		
 	}
 }
