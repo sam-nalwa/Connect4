@@ -1,6 +1,7 @@
 package com.groupfive.connectfour;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -98,8 +99,8 @@ public class MMenu implements Screen{
 			 
 		 FileHandle file = Gdx.files.internal("save.txt");//import the file with all the saves 
 		 String[] allgames=file.readString().split("\n");//split the string to find out how many saves there are
-		 System.out.println(allgames.length);
-		 displayLoader(allgames.length);//call the function to load the game in
+		 System.out.println(Arrays.toString(allgames));
+		 displayLoader(allgames.length,allgames[0].equals(""));//call the function to load the game in
 		 }
 		});
 		 		 
@@ -143,8 +144,8 @@ public class MMenu implements Screen{
 	}
 	//Called when buttonLoad is pressed
 	
-	public void displayLoader(int count) {
-		if (count>1){
+	public void displayLoader(int count,boolean empty) {
+		if (empty==false){
 			//Hide our table of buttons
 			table.setVisible(false);
 
@@ -229,7 +230,7 @@ public class MMenu implements Screen{
 			}
 		}
 		//if there are no saves display that there are no saved and give the options to go back 
-		if (count==1){
+		if (empty==true){
 			table.setVisible(false);
 			loadTable = new Table(skin);
 			loadTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
