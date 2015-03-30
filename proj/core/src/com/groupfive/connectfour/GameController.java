@@ -100,30 +100,43 @@ public class GameController{
 			insertPiece(col,row);
 		}
 	}
+	//An AI that places a piece semi intelligently
 	public void aiPlace(){
+		//This ai goes through 3 phases of logic when deciding where to place
+		//PHASE 1: Checks for an imediate win and places if there is one
 		for (int i = 0; i < gameBoard.colLength; i++){
+			//Cloning board for simulation
 			Board gameCopy = new Board(gameBoard);
 			gameCopy.normalPlace(i,colourPlacing);
+			//Here is where we check if this is a winning condition
 			if (gameCopy.checkWin() == colourPlacing){
 				System.out.println("Placed for win");
 				insertPiece(i,gameCopy.rowLength - 1);
 				return;
 			}
 		}
+		//PHASE 2: Checks if the other player has a winning move, and blocks it
 		for (int i = 0; i < gameBoard.colLength; i++){
+			//Cloning board with other players move
 			switchColour();
 			Board gameCopy = new Board(gameBoard);
 			gameCopy.normalPlace(i,colourPlacing);
 			switchColour();
+			//If this is a winning move for the other player, we place here instead
 			if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
 				System.out.println("Placed to block");
 				insertPiece(i,gameCopy.rowLength - 1);
 				return;
 			}
 		}
+		//PHASE 3: Checks all possible moves and chooses the one with the most
+		//Adjacent pieces that it owns
+
+		//Storing the best move so far
 		int bestCol  = 0;
 		int bestMovQuality = 0;
 		for (int i = 0; i < gameBoard.colLength; i++){
+			//Quickly finding where the piece would drop according to gravity
 			Integer row = null; 
 			for (int j = 0; j < gameBoard.rowLength; j++){
 				if (gameBoard.getToken(i,j).getState() == TokenState.EMPTY){
@@ -131,10 +144,14 @@ public class GameController{
 					break;
 				}
 			}
+			//
 			int moveQuality = 0;
 			if (row != null){
 				for (int k = -1; k <=1; k++){
 					if ((i-1) >= 0 && (row+k) >= 0 && (row +k) < gameBoard.rowLength && gameBoard.getToken(i-1,row+k).getState() == colourPlacing){
+						moveQuality++;
+					}
+					if ((row-1) >= 0 && gameBoard.getToken(i,row-1) == colourPlacing){
 						moveQuality++;
 					}
 				}
@@ -150,9 +167,10 @@ public class GameController{
 		}
 	}
 	public void playerPlace(int col,int row){
-		insertPiece(col,row);
-		if(this.ai){
-			aiPlace();
+		if ((insertPiece(col,row)){
+			if(this.ai){
+				aiPlace();
+			}
 		}
 	}
 	public GameState getCurrentState(){
