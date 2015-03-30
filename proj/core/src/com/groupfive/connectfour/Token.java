@@ -6,6 +6,10 @@ public class Token{
 	Token(){
 		currentState = TokenState.EMPTY;
 	}
+	//Copy constructor
+	public Token(Token old){
+		this.currentState = old.currentState;
+	}
 	//Method to change the token to whatever the desired state is
 	//(this really shouldnt be used more than once per token)
 	void changeState(TokenState newState){
@@ -17,4 +21,5 @@ public class Token{
 	public TokenState getState(){
 		return currentState;
 	}
+	
 }
