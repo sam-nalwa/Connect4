@@ -111,9 +111,7 @@ public class GameController{
 			gameCopy.normalPlace(i,colourPlacing);
 			//Here is where we check if this is a winning condition
 			if (gameCopy.checkWin() == colourPlacing){
-				System.out.println("Placed for win");
-				insertPiece(i,gameCopy.rowLength - 1);
-				return true;
+				return insertPiece(i,gameCopy.rowLength - 1);
 			}
 		}
 		//PHASE 2: Checks if the other player has a winning move, and blocks it
@@ -125,9 +123,7 @@ public class GameController{
 			switchColour();
 			//If this is a winning move for the other player, we place here instead
 			if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
-				System.out.println("Placed to block");
-				insertPiece(i,gameCopy.rowLength - 1);
-				return true;
+				return insertPiece(i,gameCopy.rowLength - 1);
 			}
 		}
 		//PHASE 3: Checks all possible moves and chooses the one with the most
@@ -164,7 +160,6 @@ public class GameController{
 				bestMovQuality = moveQuality;
 			}
 		}
-		System.out.println("Placed with quality: " + bestMovQuality + " at " + bestCol );
 		//Places the highest rated move
 		return insertPiece(bestCol,gameBoard.rowLength - 1);
 	}
