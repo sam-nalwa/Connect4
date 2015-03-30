@@ -13,7 +13,7 @@ public class GameController{
 	private boolean ai = false;
 	//This constructor just intializes the game with a randomly chosen player
 	//Used for normal game beginning//
-	public GameController(boolean freePlaceMode){
+	public GameController(boolean freePlaceMode,boolean vscomputer){
 		this.freePlaceMode = freePlaceMode;//Storing requested mode
 
 		colourPlacing = pickRandomColour();
