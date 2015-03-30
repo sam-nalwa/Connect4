@@ -21,7 +21,8 @@ public class Board{
 		clear();
 	}
 	
-	public Board(Board oldBoard){//Copy constructor
+	//Copy constructor
+	public Board(Board oldBoard){
 		this.colLength = oldBoard.colLength;
 		this.rowLength = oldBoard.rowLength;
 		slots = new Token[colLength][rowLength];

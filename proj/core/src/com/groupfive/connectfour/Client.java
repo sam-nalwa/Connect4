@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Client{
 	public static void main(String[] args) {
-		GameController game = new GameController(false);
+		GameController game = new GameController(false, false);
 		System.out.println("Begin 'Normal mode' Testing");
 		printBoard(game.getBoard());
 		game.insertPiece(0,0);
@@ -22,7 +22,7 @@ public class Client{
 		System.out.println("Place: (4,0)");
 		printBoard(game.getBoard());
 		
-		game = new GameController(true);
+		game = new GameController(true, false);
 		System.out.println("Begin 'Free place mode' Testing");
 		printBoard(game.getBoard());
 		game.insertPiece(0,0);
@@ -36,11 +36,16 @@ public class Client{
 		game.insertPiece(3,0);
 		System.out.println("Place: (3,0)");
 		printBoard(game.getBoard());
-		game.switchColour();
-		game.insertPiece(3,0);
-		System.out.println("Colour switch");
-		System.out.println("Place: (3,0)");
-		
+		System.out.println("Copy board:");//Test copy constructor
+		Board copyboard = new Board (game.getBoard());
+		printBoard(copyboard);
+		GameController copygame = new GameController(true, false);
+		copygame.setBoard(copyboard);
+		copygame.insertPiece(4, 4);
+		System.out.println("Placed (4,4) on the copied board");
+		printBoard(copygame.getBoard());
+		System.out.println("Did the original board remain unchanged?");
+		printBoard(game.getBoard());
 		//testing error throwing
 		game.reset();
 		game.insertPiece(0, 1);
@@ -61,6 +66,7 @@ public class Client{
 			}
 		}
 	}
+	
 	static void printBoard(Board brd){
 		String[] rows = new String[6];
 		for (int i = 0; i < rows.length;i++){
