@@ -8,7 +8,7 @@ public class GameController{
 	private TokenState colourPlacing;//The colour to be placed at any given time
 	private Board gameBoard;
 	private boolean freePlaceMode;//true if the game is in free placing mode
-	private boolean vsComputer;
+	private boolean vsComputer;//true if the person is playing again computer
 	private TokenState firstMove;//Used in validating the board in free place mode
 	private boolean gameOver = false;
 	private boolean ai = false;
