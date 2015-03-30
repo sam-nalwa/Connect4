@@ -9,17 +9,30 @@ public class Board{
 	public int rowLength;
 
 	//Default 7x6 board constructor to be used unless req change
-	Board(){
+	public Board(){
 		//Delagating to more specific constuctor
 		this(7,6);
 	}
 	//Future proofing in case we need different sized boards
-	Board(int colLength, int rowLength){
+	public Board(int colLength, int rowLength){
 		this.colLength = colLength;
 		this.rowLength = rowLength;
 		slots = new Token[colLength][rowLength];
 		clear();
 	}
+	
+	public Board(Board oldBoard){//Copy constructor
+		this.colLength = oldBoard.colLength;
+		this.rowLength = oldBoard.rowLength;
+		slots = new Token[colLength][rowLength];
+		clear();
+		for (int i=0; i<colLength ;i++){
+			for (int j=0; j<rowLength ;j++){
+				slots[i][j] = new Token(oldBoard.slots[i][j]);
+			}
+		}
+	}
+	
 	//Used for accessing token directly
 	public Token getToken(int col, int row){
 		return slots[col][row];
