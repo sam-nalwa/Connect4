@@ -10,6 +10,7 @@ public class GameController{
 	private boolean freePlaceMode;//true if the game is in free placing mode
 	private TokenState firstMove;//Used in validating the board in free place mode
 	private boolean gameOver = false;
+	private boolean ai = false;
 	//This constructor just intializes the game with a randomly chosen player
 	//Used for normal game beginning//
 	public GameController(boolean freePlaceMode){
@@ -99,6 +100,12 @@ public class GameController{
 	}
 	public void aiPlace(){
 		
+	}
+	public void playerPlace(int col,int row){
+		insertPiece(col,row);
+		if(this.ai){
+			aiPlace();
+		}
 	}
 	public GameState getCurrentState(){
 		TokenState winner = gameBoard.checkWin();

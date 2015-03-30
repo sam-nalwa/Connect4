@@ -110,7 +110,7 @@ public class EventListener implements InputProcessor{
 			System.out.println("Clicked on the board!");
 			x-=boardOffsetX;
 			y-=boardOffsetY;
-			gc.insertPiece(x/tokenSize, y/tokenSize);
+			gc.playerPlace(x/tokenSize, y/tokenSize);
 		} else{
 			System.out.println("You can't do that.");
 		}
