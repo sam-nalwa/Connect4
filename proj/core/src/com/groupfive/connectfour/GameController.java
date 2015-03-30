@@ -101,7 +101,8 @@ public class GameController{
 		}
 	}
 	//An AI that places a piece semi intelligently
-	public void aiPlace(){
+	//Returns true on success
+	public boolean aiPlace(){
 		//This ai goes through 3 phases of logic when deciding where to place
 		//PHASE 1: Checks for an imediate win and places if there is one
 		for (int i = 0; i < gameBoard.colLength; i++){
@@ -112,7 +113,7 @@ public class GameController{
 			if (gameCopy.checkWin() == colourPlacing){
 				System.out.println("Placed for win");
 				insertPiece(i,gameCopy.rowLength - 1);
-				return;
+				return true;
 			}
 		}
 		//PHASE 2: Checks if the other player has a winning move, and blocks it
@@ -126,7 +127,7 @@ public class GameController{
 			if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
 				System.out.println("Placed to block");
 				insertPiece(i,gameCopy.rowLength - 1);
-				return;
+				return true;
 			}
 		}
 		//PHASE 3: Checks all possible moves and chooses the one with the most
@@ -144,30 +145,31 @@ public class GameController{
 					break;
 				}
 			}
-			//
+			//Looks around the potential position and adds up the number of adjacent pieces
+			//of the ai's colour to rate the position
 			int moveQuality = 0;
 			if (row != null){
 				for (int k = -1; k <=1; k++){
 					if ((i-1) >= 0 && (row+k) >= 0 && (row +k) < gameBoard.rowLength && gameBoard.getToken(i-1,row+k).getState() == colourPlacing){
 						moveQuality++;
 					}
-					if ((row-1) >= 0 && gameBoard.getToken(i,row-1) == colourPlacing){
+					if ((row-1) >= 0 && gameBoard.getToken(i,row-1).getState() == colourPlacing){
 						moveQuality++;
 					}
 				}
 			}
+			//If this is a higher rated move it replaces the previos higher rated move
 			if (moveQuality > bestMovQuality){
 				bestCol = i;
 				bestMovQuality = moveQuality;
 			}
 		}
 		System.out.println("Placed with quality: " + bestMovQuality + " at " + bestCol );
-		if (!insertPiece(bestCol,gameBoard.rowLength - 1)){
-			System.out.println("AI insert failed");
-		}
+		//Places the highest rated move
+		return insertPiece(bestCol,gameBoard.rowLength - 1);
 	}
 	public void playerPlace(int col,int row){
-		if ((insertPiece(col,row)){
+		if (insertPiece(col,row)){
 			if(this.ai){
 				aiPlace();
 			}
