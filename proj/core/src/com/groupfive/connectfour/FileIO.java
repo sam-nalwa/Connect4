@@ -24,8 +24,8 @@ public class FileIO{
 		return counter;
 	}
 	//Function to saves the current gamestate into a textfile
-	public static void save(Board currBoard, String pTurn)throws IOException {
-
+	public static void save(Board currBoard, String pTurn, String gameMode)throws IOException {
+	
 		
 		String gameTokens = "";//create a blank string which the game token values will be stored into
 
@@ -53,7 +53,7 @@ public class FileIO{
 
 		//Append text to file
 		FileHandle file = Gdx.files.local("save.txt");//open the save file
-		file.writeString(date+"@"+gameTokens+"@"+pTurn+"\n", true); //write the game state to it
+		file.writeString(date+"@"+gameTokens+"@"+pTurn+"@"+gameMode+"\n", true); //write the game state to it
 
 		System.out.println("GameState Saved.");//print out that the game has been saved
 
@@ -68,11 +68,16 @@ public class FileIO{
 		String[] text = file.readString().split("@",0);//read the file and split it at the "@" symbols
 		String tokenPlaces = text[(1+(loadGame*2))];//get all the token places in the form of a string from the text array
 		String playerTurn = text[(2+(loadGame*2))].split(",")[0];//get all the player turn information in the form of a string from the text array
-
-		GameController gc = new GameController(true,false);//create a new game controller in freeplace mode
-
+		boolean againstAI = null;
+		if (text[3+(loadGame*2)] == "H"){
+			againstAI = false;
+		}
+		againstAI = true;
+		
+		GameController gc = new GameController(true,againstAI);//create a new game controller in freeplace mode
+		
 		Board freshBoard = new Board();//create a new clean board
-
+		
 		//Make the board
 		for (int i = 0; i < 7; i++){ //columns
 			for (int j = 0; j < 6; j++){ //rows
@@ -92,8 +97,9 @@ public class FileIO{
 		} else {
 			gc.setTurn(TokenState.BLUE);//else set it to blue
 		}
-
+		
 		gc.endFreePlace();//end the free placing mode
+		
 		return gc;//return the game controller to be called into the game screen
 
 	}
