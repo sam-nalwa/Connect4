@@ -69,7 +69,7 @@ public class FileIO{
 		String tokenPlaces = text[(1+(loadGame*2))];//get all the token places in the form of a string from the text array
 		String playerTurn = text[(2+(loadGame*2))].split(",")[0];//get all the player turn information in the form of a string from the text array
 
-		GameController gc = new GameController(true);//create a new game controller in freeplace mode
+		GameController gc = new GameController(true,false);//create a new game controller in freeplace mode
 
 		Board freshBoard = new Board();//create a new clean board
 

@@ -34,8 +34,8 @@ public class MMenu implements Screen{
 	 private Skin skin=new Skin(Gdx.files.internal("menuSkin.json"), atlas); //add the fonts and charachters in for the text of the buttons
 
 	
-	 private Table table, loadTable, loadDelete;//declare the main menu and load game tables
-	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad;//declare all the text buttons implemted 
+	 private Table table, loadTable, playTable, loadDelete;//declare the main menu and load game tables
+	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad, buttonHuman, buttonComputer, buttonBack;//declare all the text buttons implemted 
 	 
 	
 	
@@ -86,7 +86,45 @@ public class MMenu implements Screen{
 			 
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
-		 game.setScreen(new GameScreen(game,false));//create a new empty game in regular more when play is clicked 
+			 table.setVisible(false);
+			 playTable=new Table(skin);
+			 playTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			 buttonHuman = new TextButton("Play Versus Human", skin);
+				buttonHuman.pad(20);
+				playTable.add(buttonHuman).height(85).spaceBottom(10);
+				buttonHuman.addListener(new ClickListener(){
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						System.out.println("play agains human");
+						game.setScreen(new GameScreen(game,false,false));
+					}
+			});
+			playTable.row();
+			 buttonComputer = new TextButton("Play Versus Computer", skin);
+				buttonComputer.pad(20);
+				playTable.add(buttonComputer).height(85).spaceBottom(10);
+				buttonComputer.addListener(new ClickListener(){
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						System.out.println("play agains computer");
+						game.setScreen(new GameScreen(game,false,true));
+					}
+					
+			});
+			playTable.row();
+			buttonBack = new TextButton("<  Go Back", skin);
+			buttonBack.pad(20);
+			playTable.add(buttonBack).height(85);
+			buttonBack.addListener(new ClickListener(){
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					playTable.setVisible(false);
+					table.setVisible(true);
+				}
+			});
+			playTable.bottom();
+			stage.addActor(playTable);
+			// game.setScreen(new GameScreen(game,false));//create a new empty game in regular more when play is clicked 
 		 }
 		 });
 		 
@@ -99,7 +137,6 @@ public class MMenu implements Screen{
 			 
 		 FileHandle file = Gdx.files.internal("save.txt");//import the file with all the saves 
 		 String[] allgames=file.readString().split("\n");//split the string to find out how many saves there are
-		 System.out.println(Arrays.toString(allgames));
 		 displayLoader(allgames.length,allgames[0].equals(""));//call the function to load the game in
 		 }
 		});
@@ -111,7 +148,7 @@ public class MMenu implements Screen{
 		 buttonCreate.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
-		 game.setScreen(new GameScreen(game,true));
+		 game.setScreen(new GameScreen(game,true,false));
 		 }
 		 });
 		 
