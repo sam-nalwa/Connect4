@@ -97,6 +97,9 @@ public class GameController{
 			insertPiece(col,row);
 		}
 	}
+	public void aiPlace(){
+		
+	}
 	public GameState getCurrentState(){
 		TokenState winner = gameBoard.checkWin();
 
