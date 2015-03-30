@@ -101,7 +101,47 @@ public class GameController{
 		}
 	}
 	public void aiPlace(){
-		
+		for (int i = 0; i < gameBoard.colLength; i++){
+			Board gameCopy = new Board(gameBoard);
+			gameCopy.normalPlace(i,colourPlacing);
+			if (gameCopy.checkWin() == colourPlacing){
+				insertPiece(i,gameCopy.rowLength - 1);
+				return;
+			}
+		}
+		for (int i = 0; i < gameBoard.colLength; i++){
+			switchColour();
+			Board gameCopy = new Board(gameBoard);
+			gameCopy.normalPlace(i,colourPlacing);
+			switchColour();
+			if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
+				insertPiece(i,gameCopy.rowLength - 1);
+				return;
+			}
+		}
+		int bestCol  = 0;
+		int bestMovQuality = 0;
+		for (int i = 0; i < gameBoard.colLength; i++){
+			Integer row = null; 
+			for (int j = 0; j < gameBoard.rowLength; j++){
+				if (gameBoard.getToken(i,j).getState() == TokenState.EMPTY){
+					row = j;
+				}
+			}
+			int moveQuality = 0;
+			if (row != null){
+				for (int k = -1; k <=1; k++){
+					if ((i-1) >= 0 && gameBoard.getToken(i-1,row+k).getState() == colourPlacing){
+						moveQuality++;
+					}
+				}
+			}
+			if (moveQuality > bestMovQuality){
+				bestCol = i;
+				bestMovQuality = moveQuality;
+			}
+		}
+		insertPiece(bestCol,gameBoard.rowLength - 1);
 	}
 	public void playerPlace(int col,int row){
 		insertPiece(col,row);
