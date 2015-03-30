@@ -15,6 +15,7 @@ public class GameController{
 	//Used for normal game beginning//
 	public GameController(boolean freePlaceMode,boolean vscomputer){
 		this.freePlaceMode = freePlaceMode;//Storing requested mode
+		this.ai = vscomputer;
 
 		colourPlacing = pickRandomColour();
 		gameBoard = new Board();
