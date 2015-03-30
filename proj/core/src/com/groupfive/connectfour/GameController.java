@@ -123,6 +123,14 @@ public class GameController{
 		}
 	}
 	
+	public String playingAgainst(){
+		if(ai){
+			return "c";
+		} else {
+			return "h";
+		}
+	}
+	
 	public TokenState getTurn(){
 		return this.colourPlacing;
 	}

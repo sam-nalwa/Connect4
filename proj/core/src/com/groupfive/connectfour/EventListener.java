@@ -96,7 +96,7 @@ public class EventListener implements InputProcessor{
 				try {
 					this.errorList = gc.endFreePlace();
 					if(this.errorList == null || this.errorList.isEmpty()){
-						FileIO.save(gc.getBoard(),gc.getTurn().toString());
+						FileIO.save(gc.getBoard(),gc.getTurn().toString(),gc.playingAgainst());
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
