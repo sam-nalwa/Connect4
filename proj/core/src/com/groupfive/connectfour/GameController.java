@@ -8,22 +8,18 @@ public class GameController{
 	private TokenState colourPlacing;//The colour to be placed at any given time
 	private Board gameBoard;
 	private boolean freePlaceMode;//true if the game is in free placing mode
-	private boolean vsComputer = false;//true if the person is playing again computer
+	private boolean vsComputer;//true if the person is playing again computer
 	private TokenState firstMove;//Used in validating the board in free place mode
 	private boolean gameOver = false;
-
+	private boolean ai = false;
 	//This constructor just intializes the game with a randomly chosen player
-	public GameController(boolean freePlaceMode){
+	//Used for normal game beginning//
+	public GameController(boolean freePlaceMode,boolean vsComputer){
 		this.freePlaceMode = freePlaceMode;//Storing requested mode
+		this.ai = vsComputer;
+
 		colourPlacing = pickRandomColour();
 		gameBoard = new Board();
-	}
-	public GameController(TokenState aiColor){
-		this(false);//Delegating gamecontroller creation
-		vsComputer = true;
-		if (aiColor == colourPlacing){
-			aiPlace();
-		}
 	}
 	//Returns the board itself for manipulation
 	public Board getBoard(){
@@ -104,7 +100,7 @@ public class GameController{
 			insertPiece(col,row);
 		}
 	}
-	//An ai that places a piece semi intelligently
+	//An AI that places a piece semi intelligently
 	//Returns true on success
 	public boolean aiPlace(){
 		//This ai goes through 3 phases of logic when deciding where to place
@@ -169,7 +165,7 @@ public class GameController{
 	}
 	public void playerPlace(int col,int row){
 		if (insertPiece(col,row)){
-			if(this.vsComputer){
+			if(this.ai){
 				aiPlace();
 			}
 		}
@@ -191,7 +187,7 @@ public class GameController{
 	}
 	
 	public String playingAgainst(){
-		if(vsComputer){
+		if(ai){
 			return "c";
 		} else {
 			return "h";
