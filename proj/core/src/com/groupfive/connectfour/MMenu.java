@@ -34,8 +34,8 @@ public class MMenu implements Screen{
 	 private Skin skin=new Skin(Gdx.files.internal("menuSkin.json"), atlas); //add the fonts and charachters in for the text of the buttons
 
 	
-	 private Table table, loadTable, playTable, loadDelete;//declare the main menu and load game tables
-	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad, buttonHuman, buttonComputer, buttonBack;//declare all the text buttons implemted 
+	 private Table table, loadTable, playTable, loadDelete, chooseColor;//declare the main menu and load game tables
+	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad, buttonHuman, buttonComputer, buttonBack, buttonRed, buttonBlue;//declare all the text buttons implemted 
 	 
 	
 	
@@ -96,7 +96,7 @@ public class MMenu implements Screen{
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						System.out.println("play agains human");
-						game.setScreen(new GameScreen(game,false,false));
+						game.setScreen(new GameScreen(game,false,false,'\0'));
 					}
 			});
 			playTable.row();
@@ -106,8 +106,36 @@ public class MMenu implements Screen{
 				buttonComputer.addListener(new ClickListener(){
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						System.out.println("play agains computer");
-						game.setScreen(new GameScreen(game,false,true));
+						System.out.println("play against computer");
+						//WHAT COLOR WILL THE HUMAN BE
+						playTable.setVisible(false);
+						chooseColor = new Table(skin);
+						chooseColor.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+						buttonRed = new TextButton("Red", skin);
+						buttonRed.addListener(new ClickListener(){
+							@Override
+							public void clicked(InputEvent event, float x, float y) {
+								game.setScreen(new GameScreen(game,false,true,'R'));
+							}
+						});
+						//algorithms to load and delete save stores
+						chooseColor.add(buttonRed);chooseColor.row();
+						buttonBlue = new TextButton("Blue", skin);
+						buttonBlue.addListener(new ClickListener(){
+							@Override
+							public void clicked(InputEvent event, float x, float y) {
+								game.setScreen(new GameScreen(game,false,true,'B'));
+							}
+						});
+						//add table to the display
+						chooseColor.add(buttonBlue);chooseColor.row();
+						//buttonSelectLoad.pad(20);
+						//e.bottom();
+						stage.addActor(chooseColor);
+
+						
+						
+						
 					}
 					
 			});
@@ -148,7 +176,7 @@ public class MMenu implements Screen{
 		 buttonCreate.addListener(new ClickListener(){
 		 @Override
 		 public void clicked(InputEvent event, float x, float y) {
-		 game.setScreen(new GameScreen(game,true,false));
+		 game.setScreen(new GameScreen(game,true,false,'\0'));
 		 }
 		 });
 		 
