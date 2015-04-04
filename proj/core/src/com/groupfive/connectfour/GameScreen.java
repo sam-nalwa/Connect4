@@ -88,17 +88,14 @@ public class GameScreen implements Screen {
 		camera.setToOrtho(false,this.gameWidth,this.gameHeight);
 		
 		//Set up the game logic (initializing in free place mode)
-		if (vsComputer=false){
-			gameController = new GameController(freePlaceMode/*,vsComputer*/);
-		}
-		
-		if (vsComputer==true){
+		if (vsComputer==false){
+			gameController = new GameController(freePlaceMode);
+		} else if (vsComputer==true){
 			if (humanColor=='R'){
 				gameController = new GameController(TokenState.BLUE);
 			} else if (humanColor=='B'){
 				gameController = new GameController(TokenState.RED);
 			}
-			
 		}
 
 		

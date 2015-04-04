@@ -35,7 +35,7 @@ public class MMenu implements Screen{
 
 	
 	 private Table table, loadTable, playTable, loadDelete, chooseColor;//declare the main menu and load game tables
-	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad, buttonHuman, buttonComputer, buttonBack, buttonRed, buttonBlue;//declare all the text buttons implemted 
+	 private TextButton buttonExit, buttonPlay, buttonCreate, buttonLoad, buttonSelectLoad, buttonHuman, buttonComputer, buttonBack, buttonTitle, buttonRed, buttonBlue;//declare all the text buttons implemted 
 	 
 	
 	
@@ -89,13 +89,14 @@ public class MMenu implements Screen{
 			 table.setVisible(false);
 			 playTable=new Table(skin);
 			 playTable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			 
 			 buttonHuman = new TextButton("Play Versus Human", skin);
 				buttonHuman.pad(20);
 				playTable.add(buttonHuman).height(85).spaceBottom(10);
 				buttonHuman.addListener(new ClickListener(){
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						System.out.println("play agains human");
+						System.out.println("play against human");
 						game.setScreen(new GameScreen(game,false,false,'\0'));
 					}
 			});
@@ -111,6 +112,9 @@ public class MMenu implements Screen{
 						playTable.setVisible(false);
 						chooseColor = new Table(skin);
 						chooseColor.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+						buttonTitle = new TextButton("Pick your Color", skin);
+						chooseColor.add(buttonTitle).spaceBottom(25);
+						chooseColor.row();
 						buttonRed = new TextButton("Red", skin);
 						buttonRed.addListener(new ClickListener(){
 							@Override
@@ -130,7 +134,7 @@ public class MMenu implements Screen{
 						//add table to the display
 						chooseColor.add(buttonBlue);chooseColor.row();
 						//buttonSelectLoad.pad(20);
-						//e.bottom();
+						chooseColor.center();
 						stage.addActor(chooseColor);
 
 						
@@ -152,7 +156,7 @@ public class MMenu implements Screen{
 			});
 			playTable.bottom();
 			stage.addActor(playTable);
-			// game.setScreen(new GameScreen(game,false));//create a new empty game in regular more when play is clicked 
+		
 		 }
 		 });
 		 
