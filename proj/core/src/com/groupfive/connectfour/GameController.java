@@ -18,10 +18,7 @@ public class GameController{
 		colourPlacing = pickRandomColour();
 		gameBoard = new Board();
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 00d1162... Revert "Changed constructors and added randomized ai"
 	public GameController(TokenState aiColor){
 		this(false);//Delegating gamecontroller creation
 		vsComputer = true;
@@ -29,14 +26,11 @@ public class GameController{
 			aiPlace();
 		}
 	}
-<<<<<<< HEAD
 	
 	public void setVsComputer(boolean vsComputerFromLoad){
 		this.vsComputer=vsComputerFromLoad;
 	}
 
-=======
->>>>>>> parent of 00d1162... Revert "Changed constructors and added randomized ai"
 	//Returns the board itself for manipulation
 	public Board getBoard(){
 		return gameBoard;
