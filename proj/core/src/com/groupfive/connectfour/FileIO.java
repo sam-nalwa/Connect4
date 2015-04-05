@@ -68,15 +68,16 @@ public class FileIO{
 		String[] text = file.readString().split("@",0);//read the file and split it at the "@" symbols
 		String tokenPlaces = text[(1+(loadGame*3))];//get all the token places in the form of a string from the text array
 		String playerTurn = text[(2+(loadGame*3))].split(",")[0];//get all the player turn information in the form of a string from the text array
-		boolean againstAI;
-		if (text[3+(loadGame*2)] == "H"){
-			againstAI = false;
-		}
-		againstAI = true;
+		//boolean againstAI;
 		
-		GameController gc = new GameController(true,againstAI);//create a new game controller in freeplace mode
+		GameController gc = new GameController(true);//create a new game controller in freeplace mode
 		
 		Board freshBoard = new Board();//create a new clean board
+		
+		if (text[3+(loadGame*2)] == "H"){
+			gc.setVsComputer(false);
+		}
+		gc.setVsComputer(true);
 		
 		//Make the board
 		for (int i = 0; i < 7; i++){ //columns

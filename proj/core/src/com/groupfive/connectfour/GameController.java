@@ -21,6 +21,19 @@ public class GameController{
 		colourPlacing = pickRandomColour();
 		gameBoard = new Board();
 	}
+
+	public GameController(TokenState aiColor){
+		this(false);//Delegating gamecontroller creation
+		vsComputer = true;
+		if (aiColor == colourPlacing){
+			aiPlace();
+		}
+	}
+	
+	public void setVsComputer(boolean vsComputerFromLoad){
+		this.vsComputer=vsComputerFromLoad;
+	}
+
 	//Returns the board itself for manipulation
 	public Board getBoard(){
 		return gameBoard;
@@ -29,6 +42,7 @@ public class GameController{
 	public void setBoard(Board b){
 		this.gameBoard = b;
 	}
+	
 
 	//ends free place mode, returns errors in an HashSet<ErrorCode>
 	//or if there are no errors, returns null
