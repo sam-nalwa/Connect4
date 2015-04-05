@@ -8,20 +8,20 @@ public class GameController{
 	private TokenState colourPlacing;//The colour to be placed at any given time
 	private Board gameBoard;
 	private boolean freePlaceMode;//true if the game is in free placing mode
-	private boolean vsComputer;//true if the person is playing again computer
+	private boolean vsComputer = false;//true if the person is playing again computer
 	private TokenState firstMove;//Used in validating the board in free place mode
 	private boolean gameOver = false;
-	private boolean ai = false;
-	//This constructor just intializes the game with a randomly chosen player
-	//Used for normal game beginning//
-	public GameController(boolean freePlaceMode,boolean vsComputer){
-		this.freePlaceMode = freePlaceMode;//Storing requested mode
-		this.ai = vsComputer;
 
+	//This constructor just intializes the game with a randomly chosen player
+	public GameController(boolean freePlaceMode){
+		this.freePlaceMode = freePlaceMode;//Storing requested mode
 		colourPlacing = pickRandomColour();
 		gameBoard = new Board();
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 00d1162... Revert "Changed constructors and added randomized ai"
 	public GameController(TokenState aiColor){
 		this(false);//Delegating gamecontroller creation
 		vsComputer = true;
@@ -29,11 +29,14 @@ public class GameController{
 			aiPlace();
 		}
 	}
+<<<<<<< HEAD
 	
 	public void setVsComputer(boolean vsComputerFromLoad){
 		this.vsComputer=vsComputerFromLoad;
 	}
 
+=======
+>>>>>>> parent of 00d1162... Revert "Changed constructors and added randomized ai"
 	//Returns the board itself for manipulation
 	public Board getBoard(){
 		return gameBoard;
@@ -114,7 +117,7 @@ public class GameController{
 			insertPiece(col,row);
 		}
 	}
-	//An AI that places a piece semi intelligently
+	//An ai that places a piece semi intelligently
 	//Returns true on success
 	public boolean aiPlace(){
 		//This ai goes through 3 phases of logic when deciding where to place
@@ -179,7 +182,7 @@ public class GameController{
 	}
 	public void playerPlace(int col,int row){
 		if (insertPiece(col,row)){
-			if(this.ai){
+			if(this.vsComputer){
 				aiPlace();
 			}
 		}
@@ -201,7 +204,7 @@ public class GameController{
 	}
 	
 	public String playingAgainst(){
-		if(ai){
+		if(vsComputer){
 			return "c";
 		} else {
 			return "h";
