@@ -6,6 +6,7 @@ public class Token{
 	Token(){
 		currentState = TokenState.EMPTY;
 	}
+	
 	//Copy constructor
 	public Token(Token old){
 		this.currentState = old.currentState;
