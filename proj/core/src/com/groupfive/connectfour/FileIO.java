@@ -1,8 +1,8 @@
 package com.groupfive.connectfour;
 
 import java.io.IOException;
-
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.badlogic.gdx.Gdx;
@@ -69,7 +69,7 @@ public class FileIO{
 		String tokenPlaces = text[(1+(loadGame*3))];//get all the token places in the form of a string from the text array
 		String playerTurn = text[(2+(loadGame*3))].split(",")[0];//get all the player turn information in the form of a string from the text array
 		//boolean againstAI;
-		
+
 		GameController gc = new GameController(true);//create a new game controller in freeplace mode
 		
 		Board freshBoard = new Board();//create a new clean board
@@ -91,11 +91,13 @@ public class FileIO{
 				}
 			}
 		}
-
 		gc.setBoard(freshBoard);
-		if(playerTurn == "RED"){//if the player turn is red
+	
+		if(playerTurn.toCharArray()[0]=='R'){//if the player turn is red
+			System.out.println("Red's Turn");
 			gc.setTurn(TokenState.RED);//set the tokenState to RED
-		} else {
+		} else if (playerTurn.toCharArray()[0]=='B') {
+			System.out.println("Blue's Turn");
 			gc.setTurn(TokenState.BLUE);//else set it to blue
 		}
 		
