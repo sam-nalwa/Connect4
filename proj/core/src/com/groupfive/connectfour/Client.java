@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Client{
 	public static void main(String[] args) {
-		GameController game = new GameController(false, false);
+		GameController game = new GameController(false);
 		System.out.println("Begin 'Normal mode' Testing");
 		printBoard(game.getBoard());
 		game.insertPiece(0,0);
@@ -22,7 +22,7 @@ public class Client{
 		System.out.println("Place: (4,0)");
 		printBoard(game.getBoard());
 		
-		game = new GameController(true, false);
+		game = new GameController(true);
 		System.out.println("Begin 'Free place mode' Testing");
 		printBoard(game.getBoard());
 		game.insertPiece(0,0);
@@ -39,7 +39,7 @@ public class Client{
 		System.out.println("Copy board:");//Test copy constructor
 		Board copyboard = new Board (game.getBoard());
 		printBoard(copyboard);
-		GameController copygame = new GameController(true, false);
+		GameController copygame = new GameController(true);
 		copygame.setBoard(copyboard);
 		copygame.insertPiece(4, 4);
 		System.out.println("Placed (4,4) on the copied board");

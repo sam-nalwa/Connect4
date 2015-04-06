@@ -114,7 +114,7 @@ public class GameController{
 	//An ai that places a piece semi intelligently
 	//Returns true on success
 	public boolean aiPlace(){
-		//This ai goes through 3 phases of logic when deciding where to place
+		//This ai goes through 5 phases of logic when deciding where to place
 		//PHASE 0: First move: best first move is in the middle, or if the human places in the middle, a spot adjacent to the middle.
 		if (gameBoard.getTokenCount()==0) return insertPiece(3,0);
 		else if ((gameBoard.getTokenCount()==1)){
@@ -178,7 +178,14 @@ public class GameController{
 			}
 		}
 		//Places the highest rated move
-		return insertPiece(bestCol,gameBoard.rowLength - 1);
+		if (insertPiece(bestCol,gameBoard.rowLength - 1)) return true;
+		//PHASE 5: If there's nowhere the AI wants to place, just place in any non-full column.
+		else {
+			for (int i = 0; i<gameBoard.rowLength;i++){
+				if (gameBoard.getToken(i, 5).getState()==TokenState.EMPTY) return insertPiece(i,5);
+			}
+			return false;
+		}
 	}
 	public void playerPlace(int col,int row){
 		if (insertPiece(col,row)){
