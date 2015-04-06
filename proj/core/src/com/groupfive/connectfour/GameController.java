@@ -136,6 +136,18 @@ public class GameController{
 			if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
 				return insertPiece(i,gameCopy.rowLength - 1);
 			}
+			//Checks another turn ahead
+			else{
+				for (int j = 0; j < gameBoard.colLength; j++){
+					switchColour();
+					gameCopy.normalPlace(j, colourPlacing);
+					switchColour();
+					//If this is a winning move for the other player, we place here instead
+					if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
+						return insertPiece(j,gameCopy.rowLength - 1);
+					}
+				}
+			}
 		}
 		//PHASE 3: Checks all possible moves and chooses the one with the most
 		//Adjacent pieces that it owns
