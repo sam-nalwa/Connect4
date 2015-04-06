@@ -115,6 +115,12 @@ public class GameController{
 	//Returns true on success
 	public boolean aiPlace(){
 		//This ai goes through 3 phases of logic when deciding where to place
+		//PHASE 0: First move: best first move is in the middle, or if the human places in the middle, a spot adjacent to the middle.
+		if (gameBoard.getTokenCount()==0) return insertPiece(3,0);
+		else if ((gameBoard.getTokenCount()==1)){
+			if (gameBoard.getToken(3,0).getState()!=TokenState.EMPTY) return insertPiece(2,0);
+			else return insertPiece(3,0);
+		}
 		//PHASE 1: Checks for an imediate win and places if there is one
 		for (int i = 0; i < gameBoard.colLength; i++){
 			//Cloning board for simulation
@@ -135,18 +141,6 @@ public class GameController{
 			//If this is a winning move for the other player, we place here instead
 			if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
 				return insertPiece(i,gameCopy.rowLength - 1);
-			}
-			//Checks another turn ahead
-			else{
-				for (int j = 0; j < gameBoard.colLength; j++){
-					switchColour();
-					gameCopy.normalPlace(j, colourPlacing);
-					switchColour();
-					//If this is a winning move for the other player, we place here instead
-					if (gameCopy.checkWin() != colourPlacing && gameCopy.checkWin() != null){
-						return insertPiece(j,gameCopy.rowLength - 1);
-					}
-				}
 			}
 		}
 		//PHASE 3: Checks all possible moves and chooses the one with the most

@@ -7,6 +7,7 @@ public class Board{
 	private Token[][] slots; //This 2d array will store all of the game Tokens
 	public int colLength;
 	public int rowLength;
+	public int tokenCount;
 
 	//Default 7x6 board constructor to be used unless req change
 	public Board(){
@@ -38,9 +39,15 @@ public class Board{
 	public Token getToken(int col, int row){
 		return slots[col][row];
 	}
+	
+	public int getTokenCount(){
+		return tokenCount;
+	}
+	
 	//Method to place a token when in free mode
 	void freePlace(int col, int row, TokenState colour){
 		slots[col][row].changeState(colour);
+		tokenCount++;
 	}
 	//Methods to place a token in normal mode
 	//Returns true if succseful, false if unsuccseful
@@ -59,6 +66,7 @@ public class Board{
 		}else{
 			//The token can be placed here, proceed to do so.
 			slots[col][row].changeState(colour);
+			tokenCount++;
 			return true;
 		}
 	}
@@ -69,6 +77,7 @@ public class Board{
 				slots[i][j] = new Token();
 			}
 		}
+		tokenCount = 0;
 	}
 	//Method to check if the state of the board is legal (after freeplacemode)
 	HashSet<ErrorCode> findErrors(TokenState firstMove){
